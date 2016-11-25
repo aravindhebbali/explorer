@@ -85,22 +85,6 @@ tabPanel('Frequency - I', value = 'tab_fqual',
                  
             fluidRow(
 
-                column(12, align = 'center',
-
-                    br(),
-
-                    downloadButton('download_fqual', 'Download'),
-                    bsTooltip("download_fqual", "Click here to download frequency table.",
-                              "top", options = list(container = "body")),
-                    br(),
-                    br()
-
-                )   
-
-            ),
-
-            fluidRow(
-
                 column(4, align = 'left',
 
                     br(),

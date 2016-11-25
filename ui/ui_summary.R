@@ -111,23 +111,6 @@ tabPanel('Summary', value = 'tab_summary',
 
         fluidRow(
 
-            column(12, align = 'center',
-
-                br(),
-
-                downloadButton('download_summary', 'Download'),
-                bsTooltip("download_summary", "Click here to download summary statistics.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            )
-
-        ),
-
-        fluidRow(
-
             column(4, align = 'left',
 
                 br(),

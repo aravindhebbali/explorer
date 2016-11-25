@@ -66,24 +66,6 @@ tabPanel('Group Summary', value = 'tab_gsummary',
 
             ),
 
-
-            fluidRow(
-
-                column(12, align = 'center',
-
-                    br(),
-
-                    downloadButton('download_gsummary', 'Download'),
-                    bsTooltip("download_gsummary", "Click here to download group summary statistics.",
-                              "top", options = list(container = "body")),
-
-                    br(),
-                    br()
-
-                )
-
-            ),
-
             fluidRow(
 
                 column(6, align = 'center',

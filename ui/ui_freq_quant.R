@@ -98,23 +98,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     plotOutput('box_freq_quant')
                 )
             ),
-
-            fluidRow(
-
-                column(12, align = 'center',
-
-                    br(),
-
-                    downloadButton('download_fquant', 'Download'),
-                    bsTooltip("download_fquant", "Click here to download frequency tables.",
-                              "top", options = list(container = "body")),
-
-                    br(),
-                    br()
-
-                )
-
-            ),
+            
 
             fluidRow(
 
