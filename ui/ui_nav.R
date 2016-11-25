@@ -150,6 +150,15 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'box_plot_2.jpg', height = 50, width = 50),
+                        actionButton(inputId="click_binom", label="Binomial", width = '150px'),
+                        bsTooltip("click_binom", "Click here to explore the binomial distribution.",
+                              "top", options = list(container = "body"))
+                 ),
+
+                 column(4, align = 'center',
+                        br(),
+                        br(),
+                        img(src = 'box_plot_2.jpg', height = 50, width = 50),
                         actionButton(inputId="click_f", label="F", width = '150px'),
                         bsTooltip("click_f", "Click here to explore the f distribution.",
                               "top", options = list(container = "body"))

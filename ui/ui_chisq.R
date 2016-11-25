@@ -1,0 +1,1 @@
+tabPanel('Chisquare Distribution', value = 'tab_chisq')

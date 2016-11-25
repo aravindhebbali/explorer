@@ -1,0 +1,1 @@
+tabPanel('Binomial Distribution', value = 'tab_binom')
