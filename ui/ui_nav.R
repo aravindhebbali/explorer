@@ -93,8 +93,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'cross.png', height = 50, width = 50),
-                        actionButton(inputId="click_cross", label="Multiple 1 Way Tables", width = '150px'),
-                        bsTooltip("click_cross", "Click here to generate multiple 1 way tables.",
+                        actionButton(inputId="click_mult1", label="Multiple 1 Way Tables", width = '150px'),
+                        bsTooltip("click_mult1", "Click here to generate multiple 1 way tables.",
                               "top", options = list(container = "body"))
                  ),
 
@@ -102,8 +102,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'cross.png', height = 50, width = 50),
-                        actionButton(inputId="click_cross", label="Multiple 2 Way Tables", width = '150px'),
-                        bsTooltip("click_cross", "Click here to generate multiple 2 way tables.",
+                        actionButton(inputId="click_mult2", label="Multiple 2 Way Tables", width = '150px'),
+                        bsTooltip("click_mult2", "Click here to generate multiple 2 way tables.",
                               "top", options = list(container = "body"))
                  ),
 
@@ -123,8 +123,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'bar_plot.png', height = 50, width = 50),
-                        actionButton(inputId="click_barplot", label="Normal", width = '150px'),
-                        bsTooltip("click_barplot", "Click here to explore the normal distribution.",
+                        actionButton(inputId="click_normal", label="Normal", width = '150px'),
+                        bsTooltip("click_normal", "Click here to explore the normal distribution.",
                               "top", options = list(container = "body"))
                  ),    
 
@@ -132,8 +132,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'bar_plot2.png', height = 50, width = 50),
-                        actionButton(inputId="click_barplot2", label="T",, width = '150px'),
-                        bsTooltip("click_barplot2", "Click here to explore the t distribution.",
+                        actionButton(inputId="click_t", label="T",, width = '150px'),
+                        bsTooltip("click_t", "Click here to explore the t distribution.",
                               "top", options = list(container = "body"))
                  ),    
 
@@ -141,8 +141,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'box_plot.jpg', height = 50, width = 50),
-                        actionButton(inputId="click_boxplot", label="Chi Square", width = '150px'),
-                        bsTooltip("click_boxplot", "Click here to explore the chi-square distribution.",
+                        actionButton(inputId="click_chisq", label="Chi Square", width = '150px'),
+                        bsTooltip("click_chisq", "Click here to explore the chi-square distribution.",
                               "top", options = list(container = "body"))
                  ),   
 
@@ -150,8 +150,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         br(),
                         br(),
                         img(src = 'box_plot_2.jpg', height = 50, width = 50),
-                        actionButton(inputId="click_boxplot2", label="F", width = '150px'),
-                        bsTooltip("click_boxplot2", "Click here to explore the f distribution.",
+                        actionButton(inputId="click_f", label="F", width = '150px'),
+                        bsTooltip("click_f", "Click here to explore the f distribution.",
                               "top", options = list(container = "body"))
                  )
 
