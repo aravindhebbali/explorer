@@ -1,23 +1,16 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 
-shinyServer(function(input, output) {
-
-  output$distPlot <- renderPlot({
-
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
-  })
-
+shinyServer(function(input, output, session) {
+    
+    source('logic/logic_link.R', local = T)
+    source('logic/logic_upload.R', local = T)
+    source('logic/logic_transform.R', local = T)
+    source('logic/logic_view.R', local = T)
+    source('logic/logic_screen.R', local = T)
+    source('logic/logic_summary.R', local = T)
+    source('logic/logic_freq_qual.R', local = T)
+    source('logic/logic_cross.R', local = T)
+    source('logic/logic_freq_quant.R', local = T)
+    source('logic/logic_group_summary.R', local = T)
+    
 })
