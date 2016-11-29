@@ -44,6 +44,29 @@ tabPanel('Binomial Distribution', value = 'tab_binom',
             column(8,
               plotOutput('bprob_plot', height = '400px')
             )
+          ),
+          tabPanel('Find Percentile',
+            column(4,
+              column(6, align = 'center',
+                br(),
+                br(),
+                numericInput('bperc_n', 'Number of trials', value = 10, min = 1,
+                  step = 1
+                ),
+                numericInput('bperc_p', 'Aggregated Probability', value = 0.3,
+                  min = 0, max = 1, step = 0.01
+                ),
+                numericInput('bperc_tp', 'Success Probability', value = 0.05,
+                  min = 0, max = 0.5, step = 0.01
+                ),
+                selectInput('bperc_tail', 'Tail',
+                  choices = c('lower', 'upper'), selected = 'lower'
+                )
+              )
+            ),
+            column(8,
+              plotOutput('bperc_plot', height = '400px')
+            )
           )
         )
       )
