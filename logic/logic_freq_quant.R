@@ -1,4 +1,4 @@
-source('helpers/freq_cont_final.R')
+source('helper/freq-cont.R')
 
 # descriptive statistics
 observe({
@@ -25,7 +25,7 @@ observeEvent(input$finalok, {
 
 # selected data
 d_freq_quant <- eventReactive(input$submit_fquant, {
-	validate(need(input$var_freq_quant != '', 'Please select a variable and specify the label.'))
+	validate(need(input$var_freq_quant != '', 'Please select a variable.'))
     data <- final()[, input$var_freq_quant]
 })
 
@@ -48,46 +48,20 @@ fil_quant_data <- reactive({
 
   # f_data <- d_summary()[d_summary()[, 1] >= min_data & d_summary()[, 1] <= max_data, 1]
   f_data <- d_freq_quant()[d_freq_quant() >= min_data & d_freq_quant() <= max_data]
+  fdata <- as.data.frame(f_data)
+  names(fdata) <- as.character(input$var_freq_quant)
+  fdata
 })
 
 
 output$freq_quant <- renderPrint({
-    freq_cont(fil_quant_data(), input$bins)
+    freq_cont(fil_quant_data(), as.character(input$var_freq_quant), input$bins)
 })
 
 output$hist_freq_quant <- renderPlot({
-	ko <- freq_cont(fil_quant_data(), input$bins)
-	hist.freq_cont(ko, name = input$name_freq_quant)
+	ko <- freq_cont(fil_quant_data(), as.character(input$var_freq_quant), input$bins)
+	hist(ko)
 
 })
 
 
-output$box_freq_quant <- renderPlot({
-	
-	ko <- freq_cont(fil_quant_data(), input$bins)
-	boxplot.freq_cont(ko, name = input$name_freq_quant)
-
-})
-
-
-# download
-output$download_freq_quant <- downloadHandler(
-    
-    filename = function() {
-      paste('my-report', sep = '.', 'pdf')
-    },
-
-    content = function(file) {
-      src <- normalizePath('freq_quant.Rmd')
-
-      # temporarily switch to the temp dir, in case you do not have write
-      # permission to the current working directory
-      owd <- setwd(tempdir())
-      on.exit(setwd(owd))
-      file.copy(src, 'freq_quant.Rmd')
-
-      library(rmarkdown)
-      out <- render('freq_quant.Rmd', pdf_document())
-      file.rename(out, file)
-    }
-)

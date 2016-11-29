@@ -14,20 +14,8 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     bsTooltip("var_freq_quant", "Select a variable.",
                               "left", options = list(container = "body"))
 
-                ),
-
-                
-
-                column(3, align = 'right', br(), h5('Label:')),
-
-                column(3, align = 'left',
-
-                    textInput('name_freq_quant', '', " "),
-                    bsTooltip("name_freq_quant", "Specify a label for the selected variable.",
-                              "bottom", options = list(container = "body"))
-
                 )
-                        
+
             ),
 
             fluidRow(
@@ -89,16 +77,6 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     plotOutput('hist_freq_quant')
                 )
             ),
-
-            fluidRow(
-
-                column(12, align = 'center',
-
-                    h3('Box Plot'),
-                    plotOutput('box_freq_quant')
-                )
-            ),
-            
 
             fluidRow(
 

@@ -161,6 +161,22 @@ tabPanel('Cross Table', value = 'tab_cross',
 
             fluidRow(
 
+                column(12, align = 'center',
+
+                    br(),
+
+                    downloadButton('download_cross', 'Download'),
+                    bsTooltip("download_cross", "Click here to download cross tab.",
+                              "top", options = list(container = "body")),
+                    br(),
+                    br()
+
+                )
+
+            ),
+
+            fluidRow(
+
             column(4, align = 'left',
 
                 br(),

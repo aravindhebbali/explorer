@@ -1,6 +1,3 @@
-source('helpers/sumary_stat.R')
-
-# summary
 observe({
     updateSelectInput(session = session,
                       inputId = "var_summary",
@@ -88,25 +85,3 @@ output$summary <- renderPrint({
     summary_stats(fil_data())
 })
 
-
-# download
-output$download_summary <- downloadHandler(
-    
-    filename = function() {
-      paste('my-report', sep = '.', 'pdf')
-    },
-
-    content = function(file) {
-      src <- normalizePath('summary.Rmd')
-
-      # temporarily switch to the temp dir, in case you do not have write
-      # permission to the current working directory
-      owd <- setwd(tempdir())
-      on.exit(setwd(owd))
-      file.copy(src, 'summary.Rmd')
-
-      library(rmarkdown)
-      out <- render('summary.Rmd', pdf_document())
-      file.rename(out, file)
-    }
-)

@@ -21,32 +21,8 @@ tabPanel('Frequency - I', value = 'tab_fqual',
                     bsTooltip("var_table", "Select a variable.",
                               "right", options = list(container = "body"))
 
-                ),
-
-                column(2, align = 'right', br(), br(), h5('Filter:')),
-
-                column(2, align = 'left',
-
-                    br(),
-
-                    checkboxGroupInput(inputId = 'filter_qual', label = '', choices = "", selected = "", width = '150px'),
-                    bsTooltip("filter_qual", "Filter data.",
-                              "left", options = list(container = "body"))
-
-                ),
-
-                column(2, align = 'right', br(), br(), h5('Label:')),
-
-                column(2, align = 'left',
-
-                    br(),
-
-                    textInput('name_freq_qual', '', " ", width = '150px'),
-                    bsTooltip("name_freq_qual", "Specify a label for the selected variable.",
-                              "left", options = list(container = "body"))
-
                 )
-
+                
             ),
 
             fluidRow(
@@ -82,7 +58,7 @@ tabPanel('Frequency - I', value = 'tab_fqual',
                  )
 
             ),            
-                 
+
             fluidRow(
 
                 column(4, align = 'left',
