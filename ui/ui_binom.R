@@ -70,6 +70,42 @@ tabPanel('Binomial Distribution', value = 'tab_binom',
           )
         )
       )
+    ),
+
+    fluidRow(
+
+        column(4, align = 'left',
+
+            br(),
+            br(),
+            img(src = 'transform.png', height = 50, width = 50),
+            actionButton(inputId = 'binom_chisq', label = 'Chi Square', width = '120px'),
+            bsTooltip("binom_chisq", "Click here to explore chisquare distribution.",
+                      "top", options = list(container = "body")),
+            br(),
+            br(),
+            br()
+
+        ),
+
+        column(4, align = 'center',
+             br(),
+             br(),
+             img(src = 'home_icon.png', height = 50, width = 50),
+             actionButton(inputId="binom_home", label="Home", width = '120px'),
+             bsTooltip("binom_home", "Click here to return home.",
+                      "top", options = list(container = "body"))
+        ),
+
+        column(4, align = 'right',
+             br(),
+             br(),
+             img(src = 'view_data.png', height = 50, width = 50),
+             actionButton(inputId="binom_f", label= "f", width = '120px'),
+             bsTooltip("binom_f", "Click here to explore f distribution.",
+                      "top", options = list(container = "body"))
+        )
+
     )
   )
 

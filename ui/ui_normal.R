@@ -59,6 +59,27 @@ tabPanel('Normal Distribution', value = 'tab_norm',
           )
         )
       )
+    ),
+
+    fluidRow(
+        column(6, align = 'center',
+            # link to home page
+            br(),
+            br(),
+            img(src = 'home_icon.png', height = 50, width = 50),
+            actionButton(inputId = 'norm_home', label = 'Home', width = '100px'),
+            bsTooltip("norm_home", "Click here to return home.",
+                          "top", options = list(container = "body"))
+        ),
+        column(6, align = 'center',
+            # link to upload page
+            br(),
+            br(),
+            img(src = 'upload_data.jpg', height = 50, width = 50),
+            actionButton(inputId = 'norm_t', label = 't', width = '100px'),
+            bsTooltip("norm_t", "Click here to explore t distribution.",
+                          "top", options = list(container = "body"))
+        )
     )
   )
 

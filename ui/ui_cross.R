@@ -1,15 +1,15 @@
 tabPanel('Cross Table', value = 'tab_cross',
-         
+
          fluidPage(
 
             includeCSS("styles.css"),
-             
+
             fluidRow(
 
                 column(3, align = 'right', br(), h5('Variable 1:')),
-                 
+
                 column(3, align = 'left',
-                        
+
                         selectInput("var1_cross", label = '', width = '150px',
                                     choices = "", selected = ""
                         ),
@@ -20,7 +20,7 @@ tabPanel('Cross Table', value = 'tab_cross',
                 column(3, align = 'right', br(), h5('Variable 2:')),
 
                 column(3, align = 'left',
-                        
+
                         selectInput("var2_cross", label = '', width = '150px',
                                     choices = "", selected = ""
                         ),
@@ -31,84 +31,32 @@ tabPanel('Cross Table', value = 'tab_cross',
 
             fluidRow(
 
-                column(2, align = 'right', br(), br(), h5('Filter:')),
-
-                column(2, align = 'left',
-
-                    br(),
-
-                    checkboxGroupInput(inputId = 'filter_cross1', label = '', choices = "", selected = "", width = '150px'),
-                    bsTooltip("filter_cross1", "Filter data.",
-                              "left", options = list(container = "body"))
-
-                ),
-
-                column(2, align = 'right', br(), br(), h5('Filter:')),
-
-                column(2, align = 'left',
-
-                    br(),
-
-                    checkboxGroupInput(inputId = 'filter_cross2', label = '', choices = "", selected = "", width = '150px'),
-                    bsTooltip("filter_cross2", "Filter data.",
-                              "left", options = list(container = "body"))
-
-                )
-
-            ),
-
-            fluidRow(
-
-                column(3, align = 'right', br(), h5('Label 1:')),
-
-                column(3, align = 'left',
-
-                    textInput("name_1_cross", label = '', " ", width = '150px'),
-                    bsTooltip("name_1_cross", "Specify label for first variable",
-                              "bottom", options = list(container = "body"))
-
-                ),
-
-                column(3, align = 'right', br(), h5('Label 2:')),
-
-                column(3, align = 'left',
-
-                    textInput("name_2_cross", label = '', " ", width = '150px'),
-                    bsTooltip("name_2_cross", "Specify label for second variable.",
-                              "bottom", options = list(container = "body"))
-
-                )
-                        
-            ),
-
-            fluidRow(
-
                 column(12, align = 'center',
 
                     br(),
                     br(),
-                        
+
                     actionButton(inputId = 'submit_cross', label = 'Submit', width = '120px', icon = icon('check')),
                     bsTooltip("submit_cross", "Click here to view cross tab.",
                               "top", options = list(container = "body"))
-                        
+
                 )
-                 
+
             ),
 
 
-                 
+
             fluidRow(
 
                 column(12, align = 'center',
 
                     br(),
                     br(),
-                        
+
                     verbatimTextOutput('cross')
-                        
+
                 )
-                 
+
             ),
 
             fluidRow(
@@ -182,8 +130,8 @@ tabPanel('Cross Table', value = 'tab_cross',
                 br(),
                 br(),
                 img(src = 'frequency.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_fqual', label = 'Frequency - I', width = '120px'),
-                bsTooltip("cross_fqual", "Click here to view frequency table for categorical variables.",
+                actionButton(inputId = 'cross_fquant', label = 'Frequency - II', width = '120px'),
+                bsTooltip("cross_fquant", "Click here to view frequency table for continuous variables.",
                               "top", options = list(container = "body")),
 
                 br(),
@@ -210,8 +158,8 @@ tabPanel('Cross Table', value = 'tab_cross',
                 br(),
                 br(),
                 img(src = 'fquant.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_fquant', label = 'Frequency - II', width = '120px'),
-                bsTooltip("cross_fquant", "Click here to view frequency table of continuous variables.",
+                actionButton(inputId = 'cross_mult1', label = 'Multiple 1 Way Tables', width = '120px'),
+                bsTooltip("cross_mult1", "Click here to view multiple one way tables.",
                               "top", options = list(container = "body")),
 
                 br(),
@@ -222,10 +170,7 @@ tabPanel('Cross Table', value = 'tab_cross',
         )
 
 
-             
+
          )
-         
+
 )
-
-
-

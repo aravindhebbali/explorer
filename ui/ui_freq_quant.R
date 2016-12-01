@@ -1,9 +1,9 @@
 tabPanel('Frequency - II', value = 'tab_fquant',
-         
+
          fluidPage(
-             
+
             fluidRow(
-                 
+
                 column(3, align = 'right', br(), h5('Variable:')),
 
                 column(3, align = 'left',
@@ -25,7 +25,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                 column(3, align = 'left',
                     sliderInput(inputId = 'filter_quant',  width = '200px',
                                 label = '',
-                                min = 0, max = 100, 
+                                min = 0, max = 100,
                                 step = 1, value = c(20, 80)
                     )
                 ),
@@ -34,7 +34,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
 
                 column(3, align = 'left',
 
-                    numericInput('bins', label = '', 
+                    numericInput('bins', label = '',
                                      min = 1, value = 5),
                     bsTooltip("bins", "Specify the number of bins.",
                               "bottom", options = list(container = "body"))
@@ -49,7 +49,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
 
                 br(),
                 br(),
-                
+
                 actionButton(inputId = 'submit_fquant', label = 'Submit', width = '120px', icon = icon('check')),
                 bsTooltip("submit_fquant", "Click here to view frequency table.",
                               "bottom", options = list(container = "body"))
@@ -60,13 +60,13 @@ tabPanel('Frequency - II', value = 'tab_fquant',
             fluidRow(
 
                 br(),
-                 
+
                 column(12, align = 'center',
-                        
+
                     verbatimTextOutput('freq_quant')
-                        
+
                 )
-                 
+
             ),
 
             fluidRow(
@@ -85,8 +85,8 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     br(),
                     br(),
                     img(src = 'cross.png', height = 50, width = 50),
-                    actionButton(inputId = 'fquant_cross', label = 'Cross Table', width = '140px'),
-                    bsTooltip("fquant_cross", "Click here to return to cross tab.",
+                    actionButton(inputId = 'fquant_fqual', label = 'Frequency - I', width = '140px'),
+                    bsTooltip("fquant_fqual", "Click here to return to frequency table.",
                               "top", options = list(container = "body")),
 
                     br(),
@@ -113,8 +113,8 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     br(),
                     br(),
                     img(src = 'gsummary.jpg', height = 50, width = 50),
-                    actionButton(inputId = 'fquant_grp_summary', label = 'Group Summary', width = '140px'),
-                    bsTooltip("fquant_grp_summary", "Click here to view group summary.",
+                    actionButton(inputId = 'fquant_cross', label = 'Cross Table', width = '140px'),
+                    bsTooltip("fquant_cross", "Click here to view cross table.",
                               "top", options = list(container = "body")),
 
                     br(),
@@ -123,7 +123,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                 )
 
             )
-             
+
     )
-         
+
 )

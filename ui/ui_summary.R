@@ -1,21 +1,21 @@
 tabPanel('Summary', value = 'tab_summary',
-         
+
     fluidPage(
-        
+
         fluidRow(
 
-            column(3, align = 'right', 
+            column(3, align = 'right',
 
                 br(),
-                br(), 
+                br(),
                 h5('Variable:')
 
             ),
-            
+
             column(3, align = 'left',
 
                 br(),
-                   
+
                 selectInput("var_summary", label = '',
                                choices = "", selected = "", width = '150px'
                 ),
@@ -24,10 +24,10 @@ tabPanel('Summary', value = 'tab_summary',
 
             ),
 
-            column(3, align = 'right', 
+            column(3, align = 'right',
 
                 br(),
-                br(), 
+                br(),
                 h5('Filter')
 
             ),
@@ -35,7 +35,7 @@ tabPanel('Summary', value = 'tab_summary',
             column(3, align = 'left',
 
                 br(),
-                   
+
                 sliderInput("filter_summary", label = '', min = 0, max = 100, step = 10, value = c(20, 80), width = '150px'),
                 bsTooltip("filter_summary", "Filter data using th slider.",
                               "bottom", options = list(container = "body"))
@@ -46,48 +46,12 @@ tabPanel('Summary', value = 'tab_summary',
 
         fluidRow(
 
-            column(12, align = 'center',
-
-                # checkbox for filtering data
-                checkboxInput('summary_filter', 'Filter Data', FALSE),
-
-                # conditional panel for filtering data
-                conditionalPanel(
-
-                    condition = "input.summary_filter == true",
-
-                    column(6, align = 'center', 
-
-                        selectInput("var_fsummary", label = 'Filter Variable:',
-                               choices = "", selected = "", width = '150px'
-                        ),
-                        bsTooltip("var_fsummary", "Select a variable to filter the data.",
-                              "bottom", options = list(container = "body"))
-
-                    ),
-
-                    column(3, align = 'center',
-
-                        checkboxGroupInput(inputId = 'check_summary', label = '', choices = "", selected = "", width = '150px'),
-                        bsTooltip("check_summary", "Filter data.",
-                              "left", options = list(container = "body"))
-
-
-                    )
-                )
-
-            )
-
-        ),
-
-        fluidRow(
-
 
             column(12, align = 'center',
 
                 br(),
                 br(),
-                
+
                 actionButton(inputId = 'submit_summary', label = 'Submit', width = '120px', icon = icon('check')),
                 bsTooltip("submit_summary", "Click here to view summary statistics.",
                               "bottom", options = list(container = "body"))
@@ -100,13 +64,13 @@ tabPanel('Summary', value = 'tab_summary',
 
             br(),
             br(),
-            
+
             column(12, align = 'center',
-                   
+
                 verbatimTextOutput('summary')
-                
+
             )
-            
+
         ),
 
         fluidRow(
@@ -155,10 +119,10 @@ tabPanel('Summary', value = 'tab_summary',
 
 
         )
-                
 
-        
-        
+
+
+
     )
-    
+
 )

@@ -58,6 +58,42 @@ tabPanel('t Distribution', value = 'tab_t',
           )
         )
       )
+    ),
+
+    fluidRow(
+
+        column(4, align = 'left',
+
+            br(),
+            br(),
+            img(src = 'transform.png', height = 50, width = 50),
+            actionButton(inputId = 't_norm', label = 'Normal', width = '120px'),
+            bsTooltip("t_norm", "Click here to explore normal distribution.",
+                      "top", options = list(container = "body")),
+            br(),
+            br(),
+            br()
+
+        ),
+
+        column(4, align = 'center',
+             br(),
+             br(),
+             img(src = 'home_icon.png', height = 50, width = 50),
+             actionButton(inputId="t_home", label="Home", width = '120px'),
+             bsTooltip("t_home", "Click here to return home.",
+                      "top", options = list(container = "body"))
+        ),
+
+        column(4, align = 'right',
+             br(),
+             br(),
+             img(src = 'view_data.png', height = 50, width = 50),
+             actionButton(inputId="t_chisq", label="Chi Square", width = '120px'),
+             bsTooltip("t_chisq", "Click here to explore chi square distribution.",
+                      "top", options = list(container = "body"))
+        )
+
     )
   )
 

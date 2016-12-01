@@ -1,28 +1,28 @@
 tabPanel('Frequency - I', value = 'tab_fqual',
-         
+
         fluidPage(
-             
+
             fluidRow(
 
-                column(2, align = 'right', 
+                column(2, align = 'right',
 
                     br(),
-                    br(), 
+                    br(),
                     h5('Variable:')
 
                 ),
-                
+
                 column(2, align = 'left',
 
                     br(),
-                       
+
                     selectInput("var_table", label = '',
                                    choices = "", selected = "", width = '150px'),
                     bsTooltip("var_table", "Select a variable.",
                               "right", options = list(container = "body"))
 
                 )
-                
+
             ),
 
             fluidRow(
@@ -31,10 +31,10 @@ tabPanel('Frequency - I', value = 'tab_fqual',
 
                     br(),
                     br(),
-                    
+
                     actionButton(inputId = 'submit_fqual', label = 'Submit', width = '120px', icon = icon('check')),
                     bsTooltip("submit_fqual", "Click here to view frequency table.",
-                              "bottom", options = list(container = "body"))                 
+                              "bottom", options = list(container = "body"))
 
                 )
 
@@ -54,10 +54,10 @@ tabPanel('Frequency - I', value = 'tab_fqual',
                     br(),
                     plotOutput('qual_horiz')
 
-                        
+
                  )
 
-            ),            
+            ),
 
             fluidRow(
 
@@ -92,14 +92,14 @@ tabPanel('Frequency - I', value = 'tab_fqual',
                     br(),
                     br(),
                     img(src = 'cross.png', height = 50, width = 50),
-                    actionButton(inputId = 'fqual_cross', label = 'Cross Table', width = '120px'),
-                    bsTooltip("fqual_cross", "Click here to view cross tab.",
+                    actionButton(inputId = 'fqual_fquant', label = 'Frequency - II', width = '120px'),
+                    bsTooltip("fqual_fquant", "Click here to view frequency tables for continuous data.",
                               "top", options = list(container = "body")),
                     br(),
                     br()
 
                 )
 
-            )    
+            )
         )
 )

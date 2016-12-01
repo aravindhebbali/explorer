@@ -73,6 +73,27 @@ tabPanel('F Distribution', value = 'tab_f',
           )
         )
       )
+    ),
+
+    fluidRow(
+        column(6, align = 'center',
+            # link to upload page
+            br(),
+            br(),
+            img(src = 'upload_data.jpg', height = 50, width = 50),
+            actionButton(inputId = 'f_binom', label = 'Binomial', width = '100px'),
+            bsTooltip("f_binom", "Click here to explore binomial distribution.",
+                          "top", options = list(container = "body"))
+        ),
+        column(6, align = 'center',
+            # link to home page
+            br(),
+            br(),
+            img(src = 'home_icon.png', height = 50, width = 50),
+            actionButton(inputId = 'f_home', label = 'Home', width = '100px'),
+            bsTooltip("f_home", "Click here to return home.",
+                          "top", options = list(container = "body"))
+        )
     )
   )
 
