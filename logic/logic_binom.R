@@ -3,7 +3,13 @@ output$binom_shape <- renderPlot({
 })
 
 output$bprob_plot <- renderPlot({
-  binom_prob(input$bprob_n, input$bprob_p, input$bprob_s, input$bprob_tail)
+  if (input$bprob_tail != 'interval') {
+    binom_prob(input$bprob_n, input$bprob_p, input$bprob_s, input$bprob_tail)
+  } else {
+    binom_prob(input$bprob_n, input$bprob_p,
+      c(input$bprob_tail_1, input$bprob_tail_2), input$bprob_tail)
+  }
+
 })
 
 output$bperc_plot <- renderPlot({
