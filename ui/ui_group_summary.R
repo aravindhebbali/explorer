@@ -72,7 +72,7 @@ tabPanel('Group Summary', value = 'tab_gsummary',
 
                     br(),
                     br(),
-                    img(src = 'fquant.png', height = 50, width = 50),
+                    img(src = 'mult2.png', height = 50, width = 50),
                     actionButton(inputId = 'gsummary_mult2', label = 'Multiple 2 Way Tables', width = '140px'),
                     bsTooltip("gsummary_mult2", "Click here to return to multiple two way tables.",
                               "top", options = list(container = "body")),

@@ -3,7 +3,7 @@ tabPanel("Intro", value="tab_intro", icon = icon('info-circle'),
     fluidPage(
 
 		    fluidRow(
-          column(6, offset = 3, align = 'center',
+          column(6, offset = 3, align = 'left',
             h2('Welcome to Xplorerr', align = 'center', style = 'color:blue'),
             hr(),
             br(),

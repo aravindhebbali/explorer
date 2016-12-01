@@ -12,7 +12,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         bsTooltip("submit_button", "Click here to read an introduction to this app.",
                               "top", options = list(container = "body"))
                  ),
-             
+
                  column(4, align = 'center',
                         br(),
                         br(),
@@ -21,7 +21,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         bsTooltip("click_upload", "Click here to upload data.",
                               "top", options = list(container = "body"))
                  ),
-             
+
                  column(4, align = 'center',
                         br(),
                         br(),
@@ -39,7 +39,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         bsTooltip("click_screen", "Click here to screen the data.",
                               "top", options = list(container = "body"))
                  ),
-             
+
                  column(4, align = 'center',
                         br(),
                         br(),
@@ -48,8 +48,8 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                         bsTooltip("click_view", "Click here to view data.",
                               "top", options = list(container = "body"))
                  ),
-             
-                 
+
+
 
                  column(12, align = 'center', br(), br(), h5('Descriptive Statistics'), hr()),
 
@@ -65,7 +65,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'frequency.png', height = 50, width = 50),
+                        img(src = 'freq1.png', height = 50, width = 50),
                         actionButton(inputId="click_fqual", label="Frequency - I", width = '150px'),
                         bsTooltip("click_fqual", "Click here to view frequency distribution of categorical variables.",
                               "top", options = list(container = "body"))
@@ -83,7 +83,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'cross.png', height = 50, width = 50),
+                        img(src = 'cross_table.png', height = 50, width = 50),
                         actionButton(inputId="click_cross", label="Cross Table", width = '150px'),
                         bsTooltip("click_cross", "Click here to view cross tabulation.",
                               "top", options = list(container = "body"))
@@ -92,7 +92,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'cross.png', height = 50, width = 50),
+                        img(src = 'mult1.png', height = 50, width = 50),
                         actionButton(inputId="click_mult1", label="Multiple 1 Way Tables", width = '150px'),
                         bsTooltip("click_mult1", "Click here to generate multiple 1 way tables.",
                               "top", options = list(container = "body"))
@@ -101,19 +101,19 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'cross.png', height = 50, width = 50),
+                        img(src = 'mult2.png', height = 50, width = 50),
                         actionButton(inputId="click_mult2", label="Multiple 2 Way Tables", width = '150px'),
                         bsTooltip("click_mult2", "Click here to generate multiple 2 way tables.",
                               "top", options = list(container = "body"))
                  ),
 
-                 
+
                  column(4, align = 'center',
                         br(),
                         br(),
                         img(src = 'gsummary.jpg', height = 50, width = 50),
                         actionButton(inputId="click_gsummary", label="Group Summary", width = '150px'),
-                        bsTooltip("click_gsummary", "Click here for summary statistics of a quantitative variable for 
+                        bsTooltip("click_gsummary", "Click here for summary statistics of a quantitative variable for
                             different levels of a categorical variable.", "top", options = list(container = "body"))
                  ),
 
@@ -122,34 +122,34 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'bar_plot.png', height = 50, width = 50),
+                        img(src = 'normal.png', height = 50, width = 50),
                         actionButton(inputId="click_normal", label="Normal", width = '150px'),
                         bsTooltip("click_normal", "Click here to explore the normal distribution.",
                               "top", options = list(container = "body"))
-                 ),    
+                 ),
 
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'bar_plot2.png', height = 50, width = 50),
+                        img(src = 't.png', height = 50, width = 50),
                         actionButton(inputId="click_t", label="T",, width = '150px'),
                         bsTooltip("click_t", "Click here to explore the t distribution.",
                               "top", options = list(container = "body"))
-                 ),    
+                 ),
 
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'box_plot.jpg', height = 50, width = 50),
+                        img(src = 'chisq.png', height = 50, width = 50),
                         actionButton(inputId="click_chisq", label="Chi Square", width = '150px'),
                         bsTooltip("click_chisq", "Click here to explore the chi-square distribution.",
                               "top", options = list(container = "body"))
-                 ),   
+                 ),
 
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'box_plot_2.jpg', height = 50, width = 50),
+                        img(src = 'binom.jpeg', height = 50, width = 50),
                         actionButton(inputId="click_binom", label="Binomial", width = '150px'),
                         bsTooltip("click_binom", "Click here to explore the binomial distribution.",
                               "top", options = list(container = "body"))
@@ -158,7 +158,7 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
                  column(4, align = 'center',
                         br(),
                         br(),
-                        img(src = 'box_plot_2.jpg', height = 50, width = 50),
+                        img(src = 'f.png', height = 50, width = 50),
                         actionButton(inputId="click_f", label="F", width = '150px'),
                         bsTooltip("click_f", "Click here to explore the f distribution.",
                               "top", options = list(container = "body"))
@@ -171,9 +171,9 @@ tabPanel("Home", value="tab_nav", icon = icon('home'),
 
                 br(), br(), br(), br()
             )
-             
-             
-             
+
+
+
          )
-         
+
 )

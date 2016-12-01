@@ -91,7 +91,7 @@ tabPanel('Frequency - I', value = 'tab_fqual',
 
                     br(),
                     br(),
-                    img(src = 'cross.png', height = 50, width = 50),
+                    img(src = 'fquant.png', height = 50, width = 50),
                     actionButton(inputId = 'fqual_fquant', label = 'Frequency - II', width = '120px'),
                     bsTooltip("fqual_fquant", "Click here to view frequency tables for continuous data.",
                               "top", options = list(container = "body")),

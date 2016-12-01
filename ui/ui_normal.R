@@ -75,7 +75,7 @@ tabPanel('Normal Distribution', value = 'tab_norm',
             # link to upload page
             br(),
             br(),
-            img(src = 'upload_data.jpg', height = 50, width = 50),
+            img(src = 't.png', height = 50, width = 50),
             actionButton(inputId = 'norm_t', label = 't', width = '100px'),
             bsTooltip("norm_t", "Click here to explore t distribution.",
                           "top", options = list(container = "body"))
