@@ -34,7 +34,7 @@ tabPanel('Multiple 1 Way Tables', value = 'tab_mult1',
              br(),
              br(),
              img(src = 'mult2.png', height = 50, width = 50),
-             actionButton(inputId="mult1_mult2", label="Multiple 2 Way Tables", width = '120px'),
+             actionButton(inputId="mult1_mult2", label="Multiple 2 Way Tables", width = '160px'),
              bsTooltip("mult1_mult2", "Click here to view multiple two way tables.",
                       "top", options = list(container = "body"))
         )

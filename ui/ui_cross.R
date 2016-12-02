@@ -158,7 +158,7 @@ tabPanel('Cross Table', value = 'tab_cross',
                 br(),
                 br(),
                 img(src = 'mult1.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_mult1', label = 'Multiple 1 Way Tables', width = '120px'),
+                actionButton(inputId = 'cross_mult1', label = 'Multiple 1 Way Tables', width = '160px'),
                 bsTooltip("cross_mult1", "Click here to view multiple one way tables.",
                               "top", options = list(container = "body")),
 
