@@ -3,7 +3,7 @@ library(descriptr)
 library(dplyr)
 
 shinyServer(function(input, output, session) {
-    
+
     source('logic/logic_link.R', local = T)
     source('logic/logic_upload.R', local = T)
     source('logic/logic_transform.R', local = T)
@@ -21,5 +21,6 @@ shinyServer(function(input, output, session) {
     source('logic/logic_f.R', local = T)
     source('logic/logic_t.R', local = T)
     source('logic/logic_norm.R', local = T)
+    source('logic/logic_bar.R', local = T)
 
 })
