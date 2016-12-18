@@ -1,5 +1,5 @@
 output$chisq_shape <- renderPlot({
-  chi_plot(input$chisq_df, input$chisq_norm)
+  chi_plot(input$chisq_df, as.logical(input$chisq_norm))
 })
 
 output$chiprob_plot <- renderPlot({
