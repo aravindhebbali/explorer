@@ -22,5 +22,12 @@ shinyServer(function(input, output, session) {
     source('logic/logic_t.R', local = T)
     source('logic/logic_norm.R', local = T)
     source('logic/logic_bar.R', local = T)
-
+    source('logic/logic_bar2.R', local = T)
+    source('logic/logic_box.R', local = T)
+    source('logic/logic_box2.R', local = T)
+    source('logic/logic_hist.R', local = T)
+    source('logic/logic_pie.R', local = T)
+    source('logic/logic_pie3d.R', local = T)
+    source('logic/logic_scatter.R', local = T)
+    source('logic/logic_line.R', local = T)
 })
