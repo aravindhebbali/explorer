@@ -53,15 +53,17 @@ fil_quant_data <- reactive({
   fdata
 })
 
+fquant_out <- eventReactive(input$submit_fquant, {
+  ko <- freq_cont(fil_quant_data(), as.character(input$var_freq_quant), input$bins)
+  ko
+})
 
 output$freq_quant <- renderPrint({
-    freq_cont(fil_quant_data(), as.character(input$var_freq_quant), input$bins)
+  fquant_out()
 })
 
 output$hist_freq_quant <- renderPlot({
-	ko <- freq_cont(fil_quant_data(), as.character(input$var_freq_quant), input$bins)
-	hist(ko)
-
+	hist(fquant_out())
 })
 
 

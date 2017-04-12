@@ -3,6 +3,24 @@ tabPanel('Binomial Distribution', value = 'tab_binom',
   fluidPage(
     fluidRow(
       column(12,
+        fluidRow(
+          column(8, align = 'left',
+            h4('Binomial Distribution'),
+            p('Visualize how changes in number of trials and the probability of 
+              success affect the shape of the binomial distribution. 
+              Compute/visualize probability from a given quantile and quantiles 
+              out of given probability.')
+          ),
+          column(4, align = 'right',
+            actionButton(inputId='binomdist1', label="Help", icon = icon("question-circle"),
+              onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/binom_plot.html', '_blank')"),
+            actionButton(inputId='binomdist2', label="Tutorial", icon = icon("university"),
+              onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/binomial-distribution.html', '_blank')"),
+            actionButton(inputId='binomdist3', label="Demo", icon = icon("video-camera"),
+              onclick ="window.open('http://google.com', '_blank')")
+          )
+        ),
+        hr(),
         tabsetPanel(type = 'tabs',
           tabPanel('Distribution Shape',
             column(4,
@@ -77,42 +95,6 @@ tabPanel('Binomial Distribution', value = 'tab_binom',
           )
         )
       )
-    ),
-
-    fluidRow(
-
-        column(4, align = 'left',
-
-            br(),
-            br(),
-            img(src = 'transform.png', height = 50, width = 50),
-            actionButton(inputId = 'binom_chisq', label = 'Chi Square', width = '120px'),
-            bsTooltip("binom_chisq", "Click here to explore chisquare distribution.",
-                      "top", options = list(container = "body")),
-            br(),
-            br(),
-            br()
-
-        ),
-
-        column(4, align = 'center',
-             br(),
-             br(),
-             img(src = 'home_icon.png', height = 50, width = 50),
-             actionButton(inputId="binom_home", label="Home", width = '120px'),
-             bsTooltip("binom_home", "Click here to return home.",
-                      "top", options = list(container = "body"))
-        ),
-
-        column(4, align = 'right',
-             br(),
-             br(),
-             img(src = 'view_data.png', height = 50, width = 50),
-             actionButton(inputId="binom_f", label= "f", width = '120px'),
-             bsTooltip("binom_f", "Click here to explore f distribution.",
-                      "top", options = list(container = "body"))
-        )
-
     )
   )
 

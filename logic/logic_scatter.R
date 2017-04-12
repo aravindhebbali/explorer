@@ -47,22 +47,22 @@ source("helper/scatter-plot.R")
     output$scatter_plot_1 <- renderPlot({
       scatter_plot(selected_x(), selected_y(), input$scatter_title, input$scatter_subtitle,
       input$scatter_xlabel, input$scatter_ylabel, input$scatter_colors, input$scatter_fill,
-      input$scatter_shape)
+      input$scatter_shape, size = input$scatter_size1)
     })
 
     output$scatter_plot_2 <- renderPlot({
       scatter_plot(selected_x(), selected_y(), input$scatter_title, input$scatter_subtitle,
       input$scatter_xlabel, input$scatter_ylabel, input$scatter_colors, input$scatter_fill,
       input$scatter_shape, input$x_range_min, input$x_range_max,
-      input$y_range_min, input$y_range_max)
+      input$y_range_min, input$y_range_max, input$scatter_size1)
     })
 
     output$scatter_plot_3 <- renderPlot({
       scatter_plot(selected_x(), selected_y(), input$scatter_title,
       input$scatter_subtitle, input$scatter_xlabel, input$scatter_ylabel,
-      input$scatter_colors, input$scatter_fill, input$scatter_shape,
+      input$scatter_colors, input$scatter_fill, input$scatter_shape, 
       input$x_range_min, input$x_range_max, input$y_range_min, input$y_range_max,
-      fitline = input$fitline_y, col_abline = input$col_fitline,
+      input$scatter_size1, fitline = input$fitline_y, col_abline = input$col_fitline,
       lty_abline = input$lty_fitline, lwd_abline = input$lwd_fitline)
     })
 
@@ -83,6 +83,26 @@ source("helper/scatter-plot.R")
     })
 
     output$scatter_plot_5 <- renderPlot({
+
+        scatter_plot(
+            selected_x(), selected_y(), input$scatter_title, input$scatter_subtitle,
+            input$scatter_xlabel, input$scatter_ylabel, input$scatter_colors, input$scatter_fill,
+            input$scatter_shape, input$x_range_min, input$x_range_max,
+            input$y_range_min, input$y_range_max, input$scatter_size1,
+            input$scatter_coltitle, input$scatter_colsub, input$scatter_colaxis,
+            input$scatter_collabel, input$scatter_fontmain, input$scatter_fontsub,
+            input$scatter_fontaxis, input$scatter_fontlab, input$scatter_cexmain,
+            input$scatter_cexsub, input$scatter_cexaxis, input$scatter_cexlab,
+            input$scatter_plottext, input$scatter_text_x_loc, input$scatter_text_y_loc,
+            input$scatter_textcolor, input$scatter_textfont, input$scatter_textsize,
+            input$scatter_mtextplot, input$scatter_mtext_side, input$scatter_mtext_line,
+            input$scatter_mtextadj, input$scatter_mtextcolor, input$scatter_mtextfont,
+            input$scatter_mtextsize, input$fitline_y, input$col_fitline, input$lty_fitline,
+            input$lwd_fitline
+        )
+    })
+
+    output$scatter_plot_final <- renderPlot({
 
         scatter_plot(
             selected_x(), selected_y(), input$scatter_title, input$scatter_subtitle,

@@ -5,10 +5,27 @@ tabPanel('Cross Table', value = 'tab_cross',
             includeCSS("styles.css"),
 
             fluidRow(
+              column(5, align = 'left',
+                h4('Two Way Tables'),
+                p('Generates two way tables of categorical variables. The tables created can be 
+                    visualized as barplots and mosaicplots.')
+              ),
+              column(7, align = 'right',
+                actionButton(inputId='crosstablink1', label="Help", icon = icon("question-circle"),
+                  onclick ="window.open('http://google.com', '_blank')"),
+                actionButton(inputId='crosstablink2', label="Tutorial", icon = icon("university"),
+                  onclick ="window.open('http://google.com', '_blank')"),
+                actionButton(inputId='crosstablink3', label="Demo", icon = icon("video-camera"),
+                  onclick ="window.open('http://google.com', '_blank')")
+              )
+            ),
+            hr(),
 
-                column(3, align = 'right', br(), h5('Variable 1:')),
+            fluidRow(
 
-                column(3, align = 'left',
+                column(2, align = 'right', br(), h5('Variable 1:')),
+
+                column(2, align = 'left',
 
                         selectInput("var1_cross", label = '', width = '150px',
                                     choices = "", selected = ""
@@ -17,34 +34,27 @@ tabPanel('Cross Table', value = 'tab_cross',
                               "left", options = list(container = "body"))
                 ),
 
-                column(3, align = 'right', br(), h5('Variable 2:')),
+                column(2, align = 'right', br(), h5('Variable 2:')),
 
-                column(3, align = 'left',
+                column(2, align = 'left',
 
                         selectInput("var2_cross", label = '', width = '150px',
                                     choices = "", selected = ""
                         ),
                         bsTooltip("var2_cross", "Select second variable.",
                               "left", options = list(container = "body"))
-                )
-            ),
+                ),
 
-            fluidRow(
-
-                column(12, align = 'center',
+                column(4, align = 'center',
 
                     br(),
-                    br(),
 
-                    actionButton(inputId = 'submit_cross', label = 'Submit', width = '120px', icon = icon('check')),
+                    actionButton(inputId = 'submit_cross', label = 'Submit', width = '150px', icon = icon('check')),
                     bsTooltip("submit_cross", "Click here to view cross tab.",
                               "top", options = list(container = "body"))
 
                 )
-
             ),
-
-
 
             fluidRow(
 
@@ -65,7 +75,7 @@ tabPanel('Cross Table', value = 'tab_cross',
 
                     h3('Stacked Bar Plot', style = 'align:center;'),
 
-                    plotOutput('cross_bar_stacked', height= '500px')
+                    plotOutput('cross_bar_stacked', height = "500px", width = "75%")
 
                 )
 
@@ -77,7 +87,7 @@ tabPanel('Cross Table', value = 'tab_cross',
 
                     h3('Grouped Bar Plot'),
 
-                    plotOutput('cross_bar_grouped', height= '500px')
+                    plotOutput('cross_bar_grouped', height = "500px", width = "75%")
 
                 )
 
@@ -89,7 +99,7 @@ tabPanel('Cross Table', value = 'tab_cross',
 
                     h3('Proportional Bar Plot'),
 
-                    plotOutput('cross_bar_proportional', height= '500px')
+                    plotOutput('cross_bar_proportional', height = "500px", width = "75%")
 
                 )
 
@@ -101,75 +111,11 @@ tabPanel('Cross Table', value = 'tab_cross',
 
                     h3('Mosaic Bar Plot'),
 
-                    plotOutput('cross_mosaic_plot', height= '500px')
+                    plotOutput('cross_mosaic_plot', height = "500px", width = "75%")
 
                 )
-
-            ),
-
-            fluidRow(
-
-                column(12, align = 'center',
-
-                    br(),
-
-                    downloadButton('download_cross', 'Download'),
-                    bsTooltip("download_cross", "Click here to download cross tab.",
-                              "top", options = list(container = "body")),
-                    br(),
-                    br()
-
-                )
-
-            ),
-
-            fluidRow(
-
-            column(4, align = 'left',
-
-                br(),
-                br(),
-                img(src = 'fquant.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_fquant', label = 'Frequency - II', width = '120px'),
-                bsTooltip("cross_fquant", "Click here to view frequency table for continuous variables.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'center',
-
-                br(),
-                br(),
-                img(src = 'home_icon.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_home', label = 'Home', width = '120px'),
-                bsTooltip("cross_home", "Click here to return to home.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'right',
-
-                br(),
-                br(),
-                img(src = 'mult1.png', height = 50, width = 50),
-                actionButton(inputId = 'cross_mult1', label = 'Multiple 1 Way Tables', width = '160px'),
-                bsTooltip("cross_mult1", "Click here to view multiple one way tables.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
 
             )
-
-        )
-
-
 
          )
 

@@ -2,6 +2,24 @@ tabPanel('Chisquare Distribution', value = 'tab_chisq',
 
   fluidPage(
     fluidRow(
+      column(8, align = 'left',
+        h4('Chi Square Distribution'),
+        p('Visualize how changes in degrees of freedom affect the shape of the
+         chi square distribution. Compute/visualize quantiles out of given 
+         probability and probability from a given quantile.')
+
+      ),
+      column(4, align = 'right',
+        actionButton(inputId='chidistlink1', label="Help", icon = icon("question-circle"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/chi_plot.html', '_blank')"),
+        actionButton(inputId='chidistlink2', label="Tutorial", icon = icon("university"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/chi-square-distribution.html', '_blank')"),
+        actionButton(inputId='chidistlink3', label="Demo", icon = icon("video-camera"),
+          onclick ="window.open('http://google.com', '_blank')")
+      )
+    ),
+    hr(),
+    fluidRow(
       column(12,
         tabsetPanel(type = 'tabs',
           tabPanel('Distribution Shape',
@@ -64,42 +82,6 @@ tabPanel('Chisquare Distribution', value = 'tab_chisq',
           )
         )
       )
-    ),
-
-    fluidRow(
-
-        column(4, align = 'left',
-
-            br(),
-            br(),
-            img(src = 'transform.png', height = 50, width = 50),
-            actionButton(inputId = 'chisq_t', label = 't', width = '120px'),
-            bsTooltip("chisq_t", "Click here to explore t distribution.",
-                      "top", options = list(container = "body")),
-            br(),
-            br(),
-            br()
-
-        ),
-
-        column(4, align = 'center',
-             br(),
-             br(),
-             img(src = 'home_icon.png', height = 50, width = 50),
-             actionButton(inputId="chisq_home", label="Home", width = '120px'),
-             bsTooltip("chisq_home", "Click here to return home.",
-                      "top", options = list(container = "body"))
-        ),
-
-        column(4, align = 'right',
-             br(),
-             br(),
-             img(src = 'view_data.png', height = 50, width = 50),
-             actionButton(inputId="chisq_binom", label="Binomial", width = '120px'),
-             bsTooltip("chisq_binom", "Click here to explore binomial distribution.",
-                      "top", options = list(container = "body"))
-        )
-
     )
   )
 

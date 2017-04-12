@@ -2,6 +2,23 @@ tabPanel('Normal Distribution', value = 'tab_norm',
 
   fluidPage(
     fluidRow(
+      column(8, align = 'left',
+        h4('Normal Distribution'),
+        p('Visualize how changes in mean and standard deviation affect the shape
+         of the normal distribution. Compute/visualize quantiles out of given 
+         probability and probability from a given quantile.')
+      ),
+      column(4, align = 'right',
+        actionButton(inputId='ndistlink1', label="Help", icon = icon("question-circle"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/norm_plot.html', '_blank')"),
+        actionButton(inputId='ndistlink2', label="Tutorial", icon = icon("university"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/normal-distribution.html', '_blank')"),
+        actionButton(inputId='ndistlink3', label="Demo", icon = icon("video-camera"),
+          onclick ="window.open('http://google.com', '_blank')")
+      )
+    ),
+    hr(),
+    fluidRow(
       column(12,
         tabsetPanel(type = 'tabs',
           tabPanel('Distribution Shape',
@@ -59,27 +76,6 @@ tabPanel('Normal Distribution', value = 'tab_norm',
           )
         )
       )
-    ),
-
-    fluidRow(
-        column(6, align = 'center',
-            # link to home page
-            br(),
-            br(),
-            img(src = 'home_icon.png', height = 50, width = 50),
-            actionButton(inputId = 'norm_home', label = 'Home', width = '100px'),
-            bsTooltip("norm_home", "Click here to return home.",
-                          "top", options = list(container = "body"))
-        ),
-        column(6, align = 'center',
-            # link to upload page
-            br(),
-            br(),
-            img(src = 't.png', height = 50, width = 50),
-            actionButton(inputId = 'norm_t', label = 't', width = '100px'),
-            bsTooltip("norm_t", "Click here to explore t distribution.",
-                          "top", options = list(container = "body"))
-        )
     )
   )
 

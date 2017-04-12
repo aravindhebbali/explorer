@@ -26,163 +26,229 @@ source("helper/line-plot.R")
     output$ui_nlines <- renderUI({
         ncol <- as.integer(input$n_lines)
 
+        if (ncol < 1) {
+          NULL 
+        } else {
           lapply(1:ncol, function(i) {
               selectInput(paste("n_addline_", i),
-                        label = paste0("n_addline", i),
+                        label = paste0("Line ", i),
                         choices = names(final()))
           })
+        }
     })
 
     addvars <- reactive({
         ncol <- as.integer(input$n_lines)
-
-        collect <- list(lapply(1:ncol, function(i) {
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
+          collect <- list(lapply(1:ncol, function(i) {
                       input[[paste("n_addline_", i)]]
                   }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     # dynamic UI for bar colors
     output$ui_ncolors <- renderUI({
         ncol <- as.integer(input$n_lines)
 
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_addcol_", i),
-                        label = paste0("n_addcol_", i),
+                        label = paste0("Line ", i, " Color"),
                         value = "black")
           })
+        }
     })
 
     colours <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addcol_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
 
       selected_z <- reactive({
-          data()[, addvars()]
+          # final()[, addvars()]
+        ncol <- as.integer(input$n_lines)
+        if (ncol > 0) {
+          if (ncol == 1) {
+            final() %>% select_(addvars())    
+          } else {
+            final()[, addvars()]
+          }
+        }
       })
 
     nz <- reactive({
-        ncol(selected_z())
+      ncol(selected_z())
     })
 
     output$ui_nltys <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_addlty_", i),
-                        label = paste0("n_addlty_", i),
+                        label = paste0("Line ", i, " Type"),
                         value = 1, min = 1, max = 5, step = 1)
           })
+        }
     })
 
     ltys <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addlty_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     output$ui_nlwds <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_addlwd_", i),
-                        label = paste0("n_addlwd_", i),
+                        label = paste0("Line ", i, " Width"),
                         value = 1, min = 0.1, step = 0.1)
           })
+        }
     })
 
     lwds <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addlwd_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     output$ui_pcolors <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_addpcol_", i),
-                        label = paste0("n_addpcol_", i),
+                        label = paste0("Point ", i, " Color"),
                         value = 'black')
           })
+        }
     })
 
     pcolors <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addpcol_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     output$ui_pbgcolor <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_addpbgcol_", i),
-                        label = paste0("n_addpbgcol_", i),
+                        label = paste0("Point ", i, " Bg Col"),
                         value = 'black')
           })
+        }
     })
 
     pbgcolors <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addpbgcol_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     output$ui_psize <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_addpsize_", i),
-                        label = paste0("n_addpsize_", i),
+                        label = paste0("Point ", i, " Size"),
                         value = 1, min = 0.1, step = 0.1)
           })
+        }
     })
 
     psizes <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addpsize_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     output$ui_pshape <- renderUI({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          NULL
+        } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_addpshape_", i),
-                        label = paste0("n_addpshape_", i),
+                        label = paste0("Point ", i, "Shape"),
                         min = 0, max = 25, value = 1)
           })
+        }
     })
 
     pshapes <- reactive({
         ncol <- as.integer(input$n_lines)
-
+        if (ncol < 1) {
+          colors <- NULL
+        } else {
           collect <- list(lapply(1:ncol, function(i) {
                           input[[paste("n_addpshape_", i)]]
                       }))
           colors <- unlist(collect)
+        }
+        colors
     })
 
     # dynamic UI for legend names
@@ -193,7 +259,7 @@ source("helper/line-plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_namesline_", i),
-                        label = paste0("n_namesline", i))
+                        label = paste0("Legend Name ", i))
           })
         }
     })
@@ -207,7 +273,7 @@ source("helper/line-plot.R")
         } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_pointline_", i),
-                        label = paste0("n_pointline", i), value = 15)
+                        label = paste0("Legend Point ", i), value = 15)
           })
         }
     })
@@ -219,7 +285,7 @@ source("helper/line-plot.R")
         } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_lineline_", i),
-                        label = paste0("n_lineline", i), value = 1)
+                        label = paste0("Legend Line ", i), value = 1)
           })
         }
     })
@@ -397,6 +463,50 @@ source("helper/line-plot.R")
         cexsub = input$line_cexsub, cexaxis = input$cexaxis,
         cexlab = input$cexlab, text_p = input$line_plottext,
       	text_x_loc = input$line_text_x_loc, text_y_loc = input$line_text_y_loc,
+        text_col = input$line_textcolor, text_font = input$line_textfont,
+        text_size = input$line_textsize, m_text = input$line_mtextplot,
+        m_side = input$line_mtext_side, m_line = input$line_mtext_line,
+        m_adj = input$line_mtextadj, m_col = input$line_mtextcolor,
+        m_font = input$line_mtextfont, m_cex = input$line_mtextsize,
+        leg = as.logical(input$line_leg_yn), leg_x = input$line_leg_x,
+        leg_y = input$line_leg_y, legend = name_line(),
+        leg_line = line_line(),
+        leg_point = point_line(), leg_colour = c(input$line_color, colours()),
+        leg_boxtype = input$line_leg_boxtype,
+        leg_boxcol = input$line_leg_boxcol,
+        leg_boxlty = input$line_leg_boxlty,
+        leg_boxlwd = input$line_leg_boxlwd,
+        leg_boxborcol = input$line_leg_boxborcol,
+        leg_boxxjust = input$line_leg_boxxjust,
+        leg_boxyjust = input$line_leg_boxyjust,
+        leg_textcol = input$line_leg_textcol,
+        leg_textfont = input$line_leg_textfont,
+        leg_textcolumns = input$line_leg_textcolumns,
+        leg_texthoriz = input$line_leg_texthoriz,
+        leg_title = input$line_leg_title,
+        leg_titlecol = input$line_leg_titlecol,
+        leg_textadj = input$line_leg_textadj)
+
+    })
+
+    output$line_final <- renderPlot({
+      # addvars()
+
+      line_graph(selected_xl(), selected_yl(), input$line_type, input$line_width,
+        input$line_color,title = input$line_title, sub = input$line_subtitle,
+        xlab = input$line_xlabel, ylab = input$line_ylabel, input$add_points,
+        input$point_shape, input$point_size, input$point_col, input$point_bg,
+        ylim_l = limits()[1], ylim_u = limits()[2], extra_lines = nz(),
+        extra_vars = selected_z(), extra_cols = colours(), ltys = ltys(),
+        lwds = lwds(), extra_p = input$extra_p, pcolors = pcolors(), pbgcolors = pbgcolors(),
+        pshapes = pshapes(), psizes = psizes(), colmain = input$line_coltitle,
+        colsub = input$line_colsub, colaxis = input$line_colaxis,
+        collab = input$line_collabel, fontmain = input$line_fontmain,
+        fontsub = input$line_fontsub, fontaxis = input$line_fontaxis,
+        fontlab = input$line_fontlab, cexmain = input$line_cexmain,
+        cexsub = input$line_cexsub, cexaxis = input$cexaxis,
+        cexlab = input$cexlab, text_p = input$line_plottext,
+        text_x_loc = input$line_text_x_loc, text_y_loc = input$line_text_y_loc,
         text_col = input$line_textcolor, text_font = input$line_textfont,
         text_size = input$line_textsize, m_text = input$line_mtextplot,
         m_side = input$line_mtext_side, m_line = input$line_mtext_line,

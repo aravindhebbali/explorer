@@ -1,6 +1,16 @@
 tabPanel('2 Factor Box Plot', value = 'tab_box2',
 
     fluidPage(
+      fluidRow(
+                 column(9, align = 'left',
+                   h4('2 Factor Box Plot')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='box2link1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
 
         fluidRow(
 
@@ -126,64 +136,64 @@ tabPanel('2 Factor Box Plot', value = 'tab_box2',
                       )
                     ),
 
-                    tabPanel("Legend",
-                        column(4,
-                          tabsetPanel(type = 'tabs',
-                            tabPanel('General',
-                              br(),
-                              flowLayout(
-                                selectInput('box2_leg_yn', 'Create Legend',
-                                        choices = c("TRUE" = TRUE, "FALSE" = FALSE),
-                                        selected = "FALSE")
-                                ),
-                                br(),
-                                h4('Axis Position', align = 'left', style = 'color:black'),
-                              flowLayout(
-                                numericInput('box2_leg_x', 'X Axis:', value = 1),
-                                numericInput('box2_leg_y', 'Y Axis:', value = 1)
-                              ),
-                              br(),
-                              h4('Legend Names', align = 'left', style = 'color:black'),
-                              flowLayout(
-                                numericInput('box2_legnames', 'Select:', value = 0, min = 0, step = 1),
-                                uiOutput('ui_box2_legnames')
-                              ),
-                              br(),
-                              h4('Points', align = 'left', style = 'color:black'),
-                              flowLayout(
-                                numericInput('box2_leg_point', 'Select:', value = 0, min = 0, max = 25, step = 1),
-                                uiOutput('ui_box2_legpoint')
-                              )
-                            ),
-                            tabPanel('Legend Box',
-                              flowLayout(
-                                  selectInput('box2_leg_boxtype', 'Box Type', choices = c('o', 'n'), selected = 'o'),
-                                  textInput('box2_leg_boxcol', 'Box Color', value = 'white'),
-                                  numericInput('box2_leg_boxlty', 'Box Border Line', value = 1, min = 1, max = 6, step = 1),
-                                  numericInput('box2_leg_boxlwd', 'Box Border Width', value = 1, min = 0, step = 0.1),
-                                  textInput('box2_leg_boxborcol', 'Box Border Color', value = 'black'),
-                                  numericInput('box2_leg_boxxjust', 'Horizontal Justification', value = 0, min = 0, max = 1),
-                                  numericInput('box2_leg_boxyjust', 'Vertical Justification', value = 1, min = 0, max = 1)
-                              )
-                            ),
-                            tabPanel('Legend Text',
-                              flowLayout(
-                                  selectInput('box2_leg_texthoriz', 'Horizontal Text', choices = c(TRUE, FALSE), selected = FALSE),
-                                  textInput('box2_leg_textcol', 'Text Color', value = 'black'),
-                                  textInput('box2_leg_title', 'Title', value = ''),
-                                  numericInput('box2_leg_textfont', 'Text Font', value = 1, min = 1, max = 5, step = 1),
-                                  numericInput('box2_leg_textcolumns', 'Columns', value = 1, min = 0, step = 1),
-                                  textInput('box2_leg_titlecol', 'Title Color', value = 'black'),
-                                  numericInput('box2_leg_textadj', 'Text Horizontal Adj', value = 0.5, min = 0, max = 1, step = 0.1)
-                              )
-                            )
-                          )
-                        ),
+                    # tabPanel("Legend",
+                    #     column(4,
+                    #       tabsetPanel(type = 'tabs',
+                    #         tabPanel('General',
+                    #           br(),
+                    #           flowLayout(
+                    #             selectInput('box2_leg_yn', 'Create Legend',
+                    #                     choices = c("TRUE" = TRUE, "FALSE" = FALSE),
+                    #                     selected = "FALSE")
+                    #             ),
+                    #             br(),
+                    #             h4('Axis Position', align = 'left', style = 'color:black'),
+                    #           flowLayout(
+                    #             numericInput('box2_leg_x', 'X Axis:', value = 1),
+                    #             numericInput('box2_leg_y', 'Y Axis:', value = 1)
+                    #           ),
+                    #           br(),
+                    #           h4('Legend Names', align = 'left', style = 'color:black'),
+                    #           flowLayout(
+                    #             numericInput('box2_legnames', 'Select:', value = 0, min = 0, step = 1),
+                    #             uiOutput('ui_box2_legnames')
+                    #           ),
+                    #           br(),
+                    #           h4('Points', align = 'left', style = 'color:black'),
+                    #           flowLayout(
+                    #             numericInput('box2_leg_point', 'Select:', value = 0, min = 0, max = 25, step = 1),
+                    #             uiOutput('ui_box2_legpoint')
+                    #           )
+                    #         ),
+                    #         tabPanel('Legend Box',
+                    #           flowLayout(
+                    #               selectInput('box2_leg_boxtype', 'Box Type', choices = c('o', 'n'), selected = 'o'),
+                    #               textInput('box2_leg_boxcol', 'Box Color', value = 'white'),
+                    #               numericInput('box2_leg_boxlty', 'Box Border Line', value = 1, min = 1, max = 6, step = 1),
+                    #               numericInput('box2_leg_boxlwd', 'Box Border Width', value = 1, min = 0, step = 0.1),
+                    #               textInput('box2_leg_boxborcol', 'Box Border Color', value = 'black'),
+                    #               numericInput('box2_leg_boxxjust', 'Horizontal Justification', value = 0, min = 0, max = 1),
+                    #               numericInput('box2_leg_boxyjust', 'Vertical Justification', value = 1, min = 0, max = 1)
+                    #           )
+                    #         ),
+                    #         tabPanel('Legend Text',
+                    #           flowLayout(
+                    #               selectInput('box2_leg_texthoriz', 'Horizontal Text', choices = c(TRUE, FALSE), selected = FALSE),
+                    #               textInput('box2_leg_textcol', 'Text Color', value = 'black'),
+                    #               textInput('box2_leg_title', 'Title', value = ''),
+                    #               numericInput('box2_leg_textfont', 'Text Font', value = 1, min = 1, max = 5, step = 1),
+                    #               numericInput('box2_leg_textcolumns', 'Columns', value = 1, min = 0, step = 1),
+                    #               textInput('box2_leg_titlecol', 'Title Color', value = 'black'),
+                    #               numericInput('box2_leg_textadj', 'Text Horizontal Adj', value = 0.5, min = 0, max = 1, step = 0.1)
+                    #           )
+                    #         )
+                    #       )
+                    #     ),
 
-                        column(8,
-                            plotOutput('bbox_plot_4', height = '400px')
-                        )
-                    ),
+                    #     column(8,
+                    #         plotOutput('bbox_plot_4', height = '400px')
+                    #     )
+                    # ),
 
                     tabPanel('Text',
                       column(4,
@@ -343,54 +353,7 @@ tabPanel('2 Factor Box Plot', value = 'tab_box2',
                         column(8, offset = 2,
                           plotOutput('bbox_plot_final', height = '500px')
                           )
-                      ),
-
-
-                        fluidRow(
-
-                            column(4, align = 'left',
-
-                                br(),
-                                br(),
-                                img(src = 'box_plot.jpg', height = 50, width = 50),
-                                actionButton(inputId = 'box2_box', label = 'Box Plot', width = '120px'),
-                                bsTooltip("box2_box", "Click here to create a boxplot.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'center',
-
-                                br(),
-                                br(),
-                                img(src = 'home_icon.png', height = 50, width = 50),
-                                actionButton(inputId = 'box2_home', label = 'Home', width = '120px'),
-                                bsTooltip("box2_home", "Click here to return home.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'right',
-
-                                br(),
-                                br(),
-                                img(src = 'histogram.jpg', height = 50, width = 50),
-                                actionButton(inputId = 'box2_hist', label = 'Histogram', width = '120px'),
-                                bsTooltip("box2_hist", "Click here to create a histogram.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            )
-
-                        )
+                      )
 
                     )
 

@@ -1,6 +1,16 @@
 tabPanel('Bar Plot', value = 'tab_bar',
 
     fluidPage(
+      fluidRow(
+                 column(9, align = 'left',
+                   h4('Bar Plot')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='barlink1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
 
                     fluidRow(
 
@@ -78,20 +88,20 @@ tabPanel('Bar Plot', value = 'tab_bar',
                                       column(6,
                                         tabsetPanel(type = 'tabs',
                                           tabPanel('Bar Width',
-                                            column(6, numericInput("nbarwidth", "Number of Bars", value = 1, min = 0)),
-                                            column(6, uiOutput("ui_nbarwidth"))
+                                            column(4, numericInput("nbarwidth", "Number of Bars", value = 1, min = 0)),
+                                            column(4, uiOutput("ui_nbarwidth"))
                                           ),
                                           tabPanel('Border Color',
-                                            column(6, numericInput("nborbar", "Number of Border Colors", value = 0, min = 0)),
-                                            column(6, uiOutput("ui_nborbar"))
+                                            column(4, numericInput("nborbar", "Number of Border Colors", value = 0, min = 0)),
+                                            column(4, uiOutput("ui_nborbar"))
                                           ),
                                           tabPanel('Bar Label',
                                             column(6, numericInput("nbarlabel", "Number of Labels", value = 0, min = 0)),
                                             column(6, uiOutput("ui_nbarlabel"))
                                           ),
                                           tabPanel('Bar Color',
-                                            column(6, numericInput("ncolbar", "Number of Colors", value = 0, min = 0)),
-                                            column(6, uiOutput("ui_ncolbar"))
+                                            column(4, numericInput("ncolbar", "Number of Colors", value = 0, min = 0)),
+                                            column(4, uiOutput("ui_ncolbar"))
                                           )
                                         )
                                       ),
@@ -102,19 +112,11 @@ tabPanel('Bar Plot', value = 'tab_bar',
                                     ),
 
                                     # legend options
-                                    tabPanel("Shading & Axis Options",
+                                    tabPanel("Axis",
                                         column(6,
                                           tabsetPanel(type = 'tabs',
-                                            tabPanel('Shading Density',
-                                            column(6, numericInput("nbardensity", "Shading Density", value = 1, min = 1)),
-                                            column(6, uiOutput("ui_nbardensity"))
-                                            ),
-                                            tabPanel('Shading Angle',
-                                            column(6, numericInput("nbarangle", "Shading Angle", value = 1, min = 1)),
-                                            column(6, uiOutput("ui_nbarangle"))
-                                            ),
                                             tabPanel('Axes',
-                                              flowLayout(
+                                              column(4,
                                                 selectInput('ubar_axes', 'Axes',
                                                             choices = c("TRUE" = TRUE, "FALSE" = FALSE),
                                                             selected = "TRUE"),
@@ -312,40 +314,6 @@ tabPanel('Bar Plot', value = 'tab_bar',
 
                                             column(8, offset = 2,
                                                 plotOutput('ubar_plot_final', height = '500px')
-                                            )
-
-                                        ),
-
-                                        fluidRow(
-
-                                            column(6, align = 'left',
-
-                                                br(),
-                                                br(),
-                                                img(src = 'home_icon.png', height = 50, width = 50),
-                                                actionButton(inputId = 'bar_home', label = 'Home', width = '120px'),
-                                                bsTooltip("bar_home", "Click here to return home.",
-                                                              "top", options = list(container = "body")),
-
-                                                br(),
-                                                br()
-
-
-
-                                            ),
-
-                                            column(6, align = 'right',
-
-                                                br(),
-                                                br(),
-                                                img(src = 'bar_plot2.png', height = 50, width = 50),
-                                                actionButton(inputId = 'bar_bar2', label = '2 Factor Bar Plot', width = '140px'),
-                                                bsTooltip("bar_bar2", "Click here to create a stacked/grouped bar plot.",
-                                                              "top", options = list(container = "body")),
-
-                                                br(),
-                                                br()
-
                                             )
 
                                         )

@@ -1,6 +1,16 @@
 tabPanel('3D Pie Chart', value = 'tab_pie3d',
 
     fluidPage(
+        fluidRow(
+                 column(9, align = 'left',
+                   h4('3D Pie Chart')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='pielink2', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
 
         fluidRow(
 
@@ -196,52 +206,6 @@ tabPanel('3D Pie Chart', value = 'tab_pie3d',
                             column(8, offset = 2,
 
                                 plotOutput('pie3_final', '600px')
-
-                            )
-
-                        ),
-
-                        fluidRow(
-
-                            column(4, align = 'left',
-
-                                br(),
-                                br(),
-                                img(src = 'pie_chart.png', height = 50, width = 50),
-                                actionButton(inputId = 'pie3d_pie', label = 'Pie Chart', width = '120px'),
-                                bsTooltip("pie3d_pie", "Click here to create a pie chart.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'center',
-
-                                br(),
-                                br(),
-                                img(src = 'home_icon.png', height = 50, width = 50),
-                                actionButton(inputId = 'pie3d_home', label = 'Home', width = '120px'),
-                                bsTooltip("pie3d_home", "Click here to return home.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'right',
-
-                                br(),
-                                br(),
-                                img(src = 'scatter_plot.png', height = 50, width = 50),
-                                actionButton(inputId = 'pie3d_scatter', label = 'Scatter Plot', width = '120px'),
-                                bsTooltip("pie3d_scatter", "Click here to create a scatter plot.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
 
                             )
 

@@ -2,6 +2,23 @@ tabPanel('t Distribution', value = 'tab_t',
 
   fluidPage(
     fluidRow(
+      column(6, align = 'left',
+        h4('t Distribution'),
+        p('Visualize how degrees of freedom affect the shape of t distribution. 
+          Compute/visualize quantiles out of given probability and probability 
+          from a given quantile.')
+      ),
+      column(6, align = 'right',
+        actionButton(inputId='tdistlink1', label="Help", icon = icon("question-circle"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/t_plot.html', '_blank')"),
+        actionButton(inputId='tdistlink2', label="Tutorial", icon = icon("university"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/t-distribution.html', '_blank')"),
+        actionButton(inputId='tdistlink3', label="Demo", icon = icon("video-camera"),
+          onclick ="window.open('http://google.com', '_blank')")
+      )
+    ),
+    hr(),
+    fluidRow(
       column(12,
         tabsetPanel(type = 'tabs',
           tabPanel('Distribution Shape',
@@ -58,42 +75,6 @@ tabPanel('t Distribution', value = 'tab_t',
           )
         )
       )
-    ),
-
-    fluidRow(
-
-        column(4, align = 'left',
-
-            br(),
-            br(),
-            img(src = 'normal.png', height = 50, width = 50),
-            actionButton(inputId = 't_norm', label = 'Normal', width = '120px'),
-            bsTooltip("t_norm", "Click here to explore normal distribution.",
-                      "top", options = list(container = "body")),
-            br(),
-            br(),
-            br()
-
-        ),
-
-        column(4, align = 'center',
-             br(),
-             br(),
-             img(src = 'home_icon.png', height = 50, width = 50),
-             actionButton(inputId="t_home", label="Home", width = '120px'),
-             bsTooltip("t_home", "Click here to return home.",
-                      "top", options = list(container = "body"))
-        ),
-
-        column(4, align = 'right',
-             br(),
-             br(),
-             img(src = 'chisq.png', height = 50, width = 50),
-             actionButton(inputId="t_chisq", label="Chi Square", width = '120px'),
-             bsTooltip("t_chisq", "Click here to explore chi square distribution.",
-                      "top", options = list(container = "body"))
-        )
-
     )
   )
 

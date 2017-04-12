@@ -2,9 +2,26 @@ tabPanel('Frequency - II', value = 'tab_fquant',
 
          fluidPage(
 
+           fluidRow(
+             column(6, align = 'left',
+               h4('Frequency Table (Quantitative Data)'),
+               p('Generates the frequency distribution of continuous data by splitting
+                the data into equidistant intervals created based on the number of bins specified.')
+             ),
+             column(6, align = 'right',
+               actionButton(inputId='fquantlink1', label="Help", icon = icon("question-circle"),
+                 onclick ="window.open('http://google.com', '_blank')"),
+               actionButton(inputId='fquantlink2', label="Tutorial", icon = icon("university"),
+                 onclick ="window.open('http://google.com', '_blank')"),
+               actionButton(inputId='fquantlink3', label="Demo", icon = icon("video-camera"),
+                 onclick ="window.open('http://google.com', '_blank')")
+             )
+           ),
+           hr(),
+
             fluidRow(
 
-                column(3, align = 'right', br(), h5('Variable:')),
+                column(1, align = 'right', br(), h5('Variable:')),
 
                 column(3, align = 'left',
 
@@ -14,27 +31,25 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                     bsTooltip("var_freq_quant", "Select a variable.",
                               "left", options = list(container = "body"))
 
-                )
+                ),
 
-            ),
-
-            fluidRow(
-
-                column(3, align = 'right', br(), h5('Filter:')),
+                column(1, align = 'right', br(), h5('Filter:')),
 
                 column(3, align = 'left',
-                    sliderInput(inputId = 'filter_quant',  width = '200px',
+                    sliderInput(inputId = 'filter_quant',  width = '250px',
                                 label = '',
                                 min = 0, max = 100,
                                 step = 1, value = c(20, 80)
-                    )
+                    ),
+                    bsTooltip("filter_quant", "Filter data.",
+                              "bottom", options = list(container = "body"))
                 ),
 
-                column(3, align = 'right', br(), h5('Bins:')),
+                column(1, align = 'right', br(), h5('Bins:')),
 
                 column(3, align = 'left',
 
-                    numericInput('bins', label = '',
+                    numericInput('bins', label = '', width = '200px',
                                      min = 1, value = 5),
                     bsTooltip("bins", "Specify the number of bins.",
                               "bottom", options = list(container = "body"))
@@ -50,7 +65,7 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                 br(),
                 br(),
 
-                actionButton(inputId = 'submit_fquant', label = 'Submit', width = '120px', icon = icon('check')),
+                actionButton(inputId = 'submit_fquant', label = 'Submit', width = '180px', icon = icon('check')),
                 bsTooltip("submit_fquant", "Click here to view frequency table.",
                               "bottom", options = list(container = "body"))
 
@@ -74,54 +89,8 @@ tabPanel('Frequency - II', value = 'tab_fquant',
                 column(12, align = 'center',
 
                     h3('Histogram'),
-                    plotOutput('hist_freq_quant')
+                    plotOutput('hist_freq_quant', height = "500px", width = "75%")
                 )
-            ),
-
-            fluidRow(
-
-                column(4, align = 'left',
-
-                    br(),
-                    br(),
-                    img(src = 'freq1.png', height = 50, width = 50),
-                    actionButton(inputId = 'fquant_fqual', label = 'Frequency - I', width = '140px'),
-                    bsTooltip("fquant_fqual", "Click here to return to frequency table.",
-                              "top", options = list(container = "body")),
-
-                    br(),
-                    br()
-
-                ),
-
-                column(4, align = 'center',
-
-                    br(),
-                    br(),
-                    img(src = 'home_icon.png', height = 50, width = 50),
-                    actionButton(inputId = 'fquant_home', label = 'Home', width = '140px'),
-                    bsTooltip("fquant_home", "Click here to return to home.",
-                              "top", options = list(container = "body")),
-
-                    br(),
-                    br()
-
-                ),
-
-                column(4, align = 'right',
-
-                    br(),
-                    br(),
-                    img(src = 'cross_table.png', height = 50, width = 50),
-                    actionButton(inputId = 'fquant_cross', label = 'Cross Table', width = '140px'),
-                    bsTooltip("fquant_cross", "Click here to view cross table.",
-                              "top", options = list(container = "body")),
-
-                    br(),
-                    br()
-
-                )
-
             )
 
     )

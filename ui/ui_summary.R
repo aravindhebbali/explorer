@@ -2,9 +2,25 @@ tabPanel('Summary', value = 'tab_summary',
 
     fluidPage(
 
+      fluidRow(
+        column(8, align = 'left',
+          h4('Summary Statistics'),
+          p('Generate descriptive statistics for continuous data.')
+        ),
+        column(4, align = 'right',
+          actionButton(inputId='sumrylink1', label="Help", icon = icon("question-circle"),
+            onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/summary_stats.html', '_blank')"),
+          actionButton(inputId='sumrylink2', label="Tutorial", icon = icon("university"),
+            onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/measures-of-location.html#summary-statistics', '_blank')"),
+          actionButton(inputId='sumrylink3', label="Demo", icon = icon("video-camera"),
+            onclick ="window.open('http://google.com', '_blank')")
+        )
+      ),
+      hr(),
+
         fluidRow(
 
-            column(3, align = 'right',
+            column(1, align = 'right',
 
                 br(),
                 br(),
@@ -24,30 +40,25 @@ tabPanel('Summary', value = 'tab_summary',
 
             ),
 
-            column(3, align = 'right',
+            column(1, align = 'right',
 
                 br(),
                 br(),
-                h5('Filter')
+                h5('Filter:')
 
             ),
 
             column(3, align = 'left',
 
-                br(),
+                
 
-                sliderInput("filter_summary", label = '', min = 0, max = 100, step = 10, value = c(20, 80), width = '150px'),
+                sliderInput("filter_summary", label = '', min = 0, max = 100, step = 10, value = c(20, 80), width = '250px'),
                 bsTooltip("filter_summary", "Filter data using th slider.",
                               "bottom", options = list(container = "body"))
 
-            )
+            ),
 
-        ),
-
-        fluidRow(
-
-
-            column(12, align = 'center',
+            column(4, align = 'center',
 
                 br(),
                 br(),
@@ -71,57 +82,7 @@ tabPanel('Summary', value = 'tab_summary',
 
             )
 
-        ),
-
-        fluidRow(
-
-            column(4, align = 'left',
-
-                br(),
-                br(),
-                img(src = 'view_data.png', height = 50, width = 50),
-                actionButton(inputId = 'summary_view', label = 'View', width = '120px'),
-                bsTooltip("summary_view", "Click here to view data.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'center',
-
-                br(),
-                br(),
-                img(src = 'home_icon.png', height = 50, width = 50),
-                actionButton(inputId = 'summary_home', label = 'Home', width = '120px'),
-                bsTooltip("summary_home", "Click here to return to home.",
-                              "top", options = list(container = "body")),
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'right',
-
-                br(),
-                br(),
-                img(src = 'freq1.png', height = 50, width = 50),
-                actionButton(inputId = 'summary_fqual', label = 'Frequency - I', width = '120px'),
-                bsTooltip("summary_fqual", "Click here to view frequency table of categorical variables.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            )
-
-
-
         )
-
-
-
 
     )
 

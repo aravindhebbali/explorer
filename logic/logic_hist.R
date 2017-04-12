@@ -32,7 +32,8 @@ source("helper/freq-cont.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_col_hist", i),
-                        label = paste0("n_col", i))
+                        label = paste0("Color ", i),
+                        value = 'blue')
           })
         }
     })
@@ -58,7 +59,8 @@ source("helper/freq-cont.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_bor_hist", i),
-                        label = paste0("n_bor_", i))
+                        label = paste0("Border Color ", i),
+                        value = 'black')
           })
         }
     })
@@ -76,49 +78,49 @@ source("helper/freq-cont.R")
         colors
     })
 
-    # dynamic UI for shading density
-    output$ui_nhistdensity <- renderUI({
-        ncol <- as.integer(input$nhistdensity)
+    # # dynamic UI for shading density
+    # output$ui_nhistdensity <- renderUI({
+    #     ncol <- as.integer(input$nhistdensity)
 
-        lapply(1:ncol, function(i) {
-            numericInput(paste("n_histdensity_", i),
-                      label = paste0("n_histdensity_", i),
-                      value = 1, min = 1)
-        })
-    })
+    #     lapply(1:ncol, function(i) {
+    #         numericInput(paste("n_histdensity_", i),
+    #                   label = paste0("Density ", i),
+    #                   value = 1, min = 1)
+    #     })
+    # })
 
-    density_hist <- reactive({
-        ncol <- as.integer(input$nhistdensity)
+    # density_hist <- reactive({
+    #     ncol <- as.integer(input$nhistdensity)
 
-        collect <- list(lapply(1:ncol, function(i) {
-                        input[[paste("n_histdensity_", i)]]
-                    }))
+    #     collect <- list(lapply(1:ncol, function(i) {
+    #                     input[[paste("n_histdensity_", i)]]
+    #                 }))
 
-        colors <- unlist(collect)
+    #     colors <- unlist(collect)
 
-    })
+    # })
 
-    # dynamic UI for shading angle
-    output$ui_nhistangle <- renderUI({
-        ncol <- as.integer(input$nhistangle)
+    # # dynamic UI for shading angle
+    # output$ui_nhistangle <- renderUI({
+    #     ncol <- as.integer(input$nhistangle)
 
-        lapply(1:ncol, function(i) {
-            numericInput(paste("n_histangle_", i),
-                      label = paste0("n_histangle_", i),
-                      value = 1, min = 1)
-        })
-    })
+    #     lapply(1:ncol, function(i) {
+    #         numericInput(paste("n_histangle_", i),
+    #                   label = paste0("Density Angle ", i),
+    #                   value = 1, min = 1)
+    #     })
+    # })
 
-    angle_hist <- reactive({
-        ncol <- as.integer(input$nhistangle)
+    # angle_hist <- reactive({
+    #     ncol <- as.integer(input$nhistangle)
 
-        collect <- list(lapply(1:ncol, function(i) {
-                        input[[paste("n_histangle_", i)]]
-                    }))
+    #     collect <- list(lapply(1:ncol, function(i) {
+    #                     input[[paste("n_histangle_", i)]]
+    #                 }))
 
-        colors <- unlist(collect)
+    #     colors <- unlist(collect)
 
-    })
+    # })
 
     # dynamic UI for histogram binning intervals
     output$ui_nbin_intervals <- renderUI({
@@ -126,7 +128,7 @@ source("helper/freq-cont.R")
 
         lapply(1:ncol, function(i) {
             numericInput(paste("n_bin_int", i),
-                      label = paste0("n_bin_int", i), value = 1)
+                      label = paste0("Int ", i), value = 1)
         })
     })
 
@@ -147,7 +149,7 @@ source("helper/freq-cont.R")
 
         lapply(1:ncol, function(i) {
             textInput(paste("n_nameshist_", i),
-                      label = paste0("n_nameshist", i))
+                      label = paste0("Legend Name ", i))
         })
     })
 
@@ -158,7 +160,7 @@ source("helper/freq-cont.R")
 
         lapply(1:ncol, function(i) {
             numericInput(paste("n_pointhist_", i),
-                      label = paste0("n_pointhist", i), value = 1)
+                      label = paste0("Legend Point ", i), value = 1)
         })
     })
 
@@ -240,7 +242,7 @@ source("helper/freq-cont.R")
             input$hist_xlabel, input$hist_ylabel, ylimit = c(0, ymax()),
             input$hist_frequency, input$hist_interval,
             input$hist_hideaxes, as.logical(input$hist_showlabels),
-            density_hist(), angle_hist(), colours_hist(), borders_hist())
+            colours_hist(), borders_hist())
 
     })
 
@@ -250,7 +252,7 @@ source("helper/freq-cont.R")
             input$hist_xlabel, input$hist_ylabel, ylimit = c(0, ymax()),
             input$hist_frequency, input$hist_interval,
             input$hist_hideaxes, as.logical(input$hist_showlabels),
-            density_hist(), angle_hist(), colours_hist(), borders_hist(),
+            colours_hist(), borders_hist(),
             leg = input$hist_leg_yn, leg_x = input$hist_leg_x, leg_y = input$hist_leg_y,
             legend = name_hist(), leg_point = point_hist(), leg_colour = colours_hist(), leg_boxtype = input$hist_leg_boxtype,
             leg_boxcol = input$hist_leg_boxcol, leg_boxlty = input$hist_leg_boxlty, leg_boxlwd = input$hist_leg_boxlwd,
@@ -268,7 +270,7 @@ source("helper/freq-cont.R")
             input$hist_xlabel, input$hist_ylabel, ylimit = c(0, ymax()),
             input$hist_frequency, input$hist_interval,
             input$hist_hideaxes, as.logical(input$hist_showlabels),
-            density_hist(), angle_hist(), colours_hist(), borders_hist(),
+            colours_hist(), borders_hist(),
             leg = input$hist_leg_yn, leg_x = input$hist_leg_x, leg_y = input$hist_leg_y,
             legend = name_hist(), leg_point = point_hist(), leg_colour = colours_hist(), leg_boxtype = input$hist_leg_boxtype,
             leg_boxcol = input$hist_leg_boxcol, leg_boxlty = input$hist_leg_boxlty, leg_boxlwd = input$hist_leg_boxlwd,
@@ -290,7 +292,7 @@ source("helper/freq-cont.R")
             input$hist_xlabel, input$hist_ylabel, ylimit = c(0, ymax()),
             input$hist_frequency, input$hist_interval,
             input$hist_hideaxes, as.logical(input$hist_showlabels),
-            density_hist(), angle_hist(), colours_hist(), borders_hist(),
+            colours_hist(), borders_hist(),
             input$hist_coltitle, input$hist_colsub, input$hist_colaxis,
             input$hist_collabel, fontmain = input$hist_fontmain, fontsub = input$hist_fontsub,
             fontaxis = input$hist_fontaxis, fontlab = input$hist_fontlab, input$hist_cexmain,
@@ -318,7 +320,7 @@ source("helper/freq-cont.R")
             input$hist_xlabel, input$hist_ylabel, ylimit = c(0, ymax()),
             input$hist_frequency, input$hist_interval,
             input$hist_hideaxes, as.logical(input$hist_showlabels),
-            density_hist(), angle_hist(), colours_hist(), borders_hist(),
+            colours_hist(), borders_hist(),
             input$hist_coltitle, input$hist_colsub, input$hist_colaxis,
             input$hist_collabel, fontmain = input$hist_fontmain, fontsub = input$hist_fontsub,
             fontaxis = input$hist_fontaxis, fontlab = input$hist_fontlab, input$hist_cexmain,

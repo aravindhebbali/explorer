@@ -1,7 +1,7 @@
 # histogram
 hist_plot <- function(x, bins, title = NA, xlab = NA, 
 	ylab = NA, ylimit = NULL, probability = FALSE, right = TRUE, 
-	axes = TRUE, labels = FALSE, density = NULL, angle = 45,
+	axes = TRUE, labels = FALSE, 
 	col = NULL, border = 'black',
 	colmain = "black", colsub = "black", colaxis = "black",
 	collab = "black", fontmain = 1, fontsub = 1, fontaxis = 1, fontlab = 1, 
@@ -16,7 +16,7 @@ hist_plot <- function(x, bins, title = NA, xlab = NA,
 	# hist function
 	hist(x, breaks = bins, main = title, xlab = xlab, ylab = ylab, ylim = ylimit,
 	probability = probability, right = right, axes = axes, labels = labels, 
-	density = density, angle = angle, col = col, border = border,
+	density = NULL, angle = 45, col = col, border = border,
   	col.main = colmain, col.sub = colsub,col.axis = colaxis, 
   	col.lab = collab, font.main = fontmain, font.sub = fontsub, 
   	font.axis = fontaxis, font.lab = fontlab, cex.main = cexmain, 

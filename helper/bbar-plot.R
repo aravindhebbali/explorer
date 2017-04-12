@@ -1,7 +1,7 @@
 # bivariate
 bar_plotb <- function(counts, horizontal = FALSE, color = 'blue', border = "black",
 	besides = FALSE, title = NA, xlab = NA, labels = NA, space = NA, width = 1,
-	density = NULL, angle = 45, axes = TRUE, axislty = 0, offset = 0,
+	axes = TRUE, axislty = 0, offset = 0,
 	ylab = NA, colmain = "black", colaxis = "black", collab = "black",
 	fontmain = 1, fontaxis = 1, fontlab = 1, cexmain = 1, cexaxis = 1, cexlab = 1,
 	leg = FALSE, leg_x, leg_y, legend, leg_point, leg_colour, leg_boxtype,
@@ -20,7 +20,7 @@ bar_plotb <- function(counts, horizontal = FALSE, color = 'blue', border = "blac
 	# bar plot
 	barplot(height = counts, horiz = horizontal, col = color, border = border,
 	beside = besides, legend = legtext, main = title, xlab = xlab, width = width,
-	density = density, angle = angle, axes = axes, axis.lty = axislty,
+	density = NULL, angle = 45, axes = axes, axis.lty = axislty,
 	offset = offset, ylab = ylab, col.main = colmain, col.axis = colaxis,
 	col.lab = collab, font.main = fontmain, font.axis = fontaxis,
 	font.lab = fontlab, cex.main = cexmain, cex.axis = cexaxis, cex.lab = cexlab)

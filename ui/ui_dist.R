@@ -1,4 +1,4 @@
-tabPanel('Distributions', value = 'tab_dist', icon = icon('stats', lib = 'glyphicon'),
+tabPanel('Distributions', value = 'tab_dist', icon = icon('area-chart'),
          
     navlistPanel(id = 'navlist_dist',
         well = FALSE,

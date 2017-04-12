@@ -320,3 +320,63 @@ pol_t <- function(l1, l2, df, col) {
 # }
 
 
+
+paired_data <- function(x, y) {
+  d <- tibble(x = x, y = y) %>%
+    mutate(z = x - y) %>%
+    gather()
+  return(d)
+}
+
+
+paired_stats <- function(data, key, value) {
+  d <- data %>%
+    group_by_(key) %>%
+    select_(value, key) %>%
+    summarise_each(funs(length, mean, sd)) %>%
+    as_data_frame() %>%
+    mutate(
+        se = sd / sqrt(length)
+    ) %>%
+    select(-(key:length)) %>%
+    round(2)
+  return(d)
+}
+
+samp_err <- function(sigma, n) {
+  sigma / (n ^ 0.5)
+}
+
+conf_int_t <- function(u, s, n, alpha = 0.05) {
+  a <- alpha / 2
+  df <- n - 1
+  error <- round(qt(a, df), 3) * -1
+  lower <- u - (error * samp_err(s, n))
+  upper <- u + (error * samp_err(s, n))
+  result <- c(lower, upper)
+  return(result)
+}
+
+cor_sig <- function(corr, n) {
+  t <- corr / ((1 - (corr ^ 2)) / (n - 2)) ^ 0.5
+  df <- n - 2
+  sig <- (1 - pt(t, df)) * 2
+  return(round(sig, 4))
+}
+
+formatter_pair <- function(x, w) {
+  x1 <- format(x, nsmall = 2)
+  x2 <- as.character(x1)
+  ret <- format(x2, width = w, justify = "centre")
+  return(ret)
+}
+
+fg <- function(x, w) {
+  x %>%
+    as.character() %>%
+    format(width = w, justify = 'centre')
+}
+
+fs <- function() {
+  rep("  ")
+}

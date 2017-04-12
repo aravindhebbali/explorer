@@ -14,7 +14,7 @@
 # univariate
 bar_plotu <- function(x, horizontal = FALSE, color = NULL, border = "black",
 	title = NA, xlab = NA, labels = NA, space = NA, width = 1,
-	density = NULL, angle = 45, axes = TRUE, axislty = 0, offset = 0,
+	axes = TRUE, axislty = 0, offset = 0,
 	ylab = NA, colmain = "black", colsub = "black", colaxis = "black",
 	collab = "black", fontmain = 1, fontsub = 1, fontaxis = 1, fontlab = 1, 
 	cexmain = 1, cexsub = 1, cexaxis = 1, cexlab = 1, leg = FALSE, leg_x, leg_y, legend,
@@ -30,7 +30,7 @@ bar_plotu <- function(x, horizontal = FALSE, color = NULL, border = "black",
 	# bar plot
 	barplot(counts, horiz = horizontal, col = color, border = border,
 	main = title, xlab = xlab, names.arg = labels, space = space, 
-	width = width, density = density, angle = angle, axes = axes,
+	width = width, density = NULL, angle = 45, axes = axes,
 	axis.lty = axislty, offset = offset,
 	ylab = ylab, col.main = colmain, col.sub = colsub,
   	col.axis = colaxis, col.lab = collab, font.main = fontmain,

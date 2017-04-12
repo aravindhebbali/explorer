@@ -1,30 +1,39 @@
 source('helper/group-summary.R')
 
 # descriptive statistics
-observe({
+# observe({
     
-    updateSelectInput(session,
-                      inputId = "var_group",
-                      choices = names(data()),
-                      selected = '')
+#     updateSelectInput(session,
+#                       inputId = "var_group",
+#                       choices = names(data()),
+#                       selected = '')
     
-    updateSelectInput(session,
-                      inputId = "var_grp_summary",
-                      choices = names(data()),
-                      selected = '')
+#     updateSelectInput(session,
+#                       inputId = "var_grp_summary",
+#                       choices = names(data()),
+#                       selected = '')
     
-})
+# })
 
 observeEvent(input$finalok, {
 
     num_data <- final()[, sapply(final(), is.numeric)]
-
     fact_data <- final()[, sapply(final(), is.factor)]
 
-    updateSelectInput(session,
+    if (is.null(dim(fact_data))) {
+      k <- final() %>% map(is.factor) %>% unlist()
+      j <- names(which(k == TRUE))
+      f_data <- tibble::as_data_frame(fact_data)
+      colnames(f_data) <- j
+      updateSelectInput(session,
+                        inputId = "var_group",
+                        choices = names(f_data))
+    } else {
+      updateSelectInput(session,
                       inputId = "var_group",
                       choices = names(fact_data))
 
+    }
 
     updateSelectInput(session,
                       inputId = "var_grp_summary",
@@ -39,16 +48,17 @@ d_group_summary <- eventReactive(input$submit_gsummary, {
 })
 
 
+gsummary_out <- eventReactive(input$submit_gsummary, {
+  ko <- group_summary(d_group_summary(), as.character(input$var_group),
+                        as.character(input$var_grp_summary))
+  ko
+})
+
 output$group_summary <- renderPrint({
-    group_summary(d_group_summary(), as.character(input$var_group),
-                  as.character(input$var_grp_summary))
+    gsummary_out()
 })
 
 output$box_group_summary <- renderPlot({
-    
-    ko <- group_summary(d_group_summary(), as.character(input$var_group),
-                        as.character(input$var_grp_summary))
-    boxplot.group_summary(ko)
-    
+  boxplot.group_summary(gsummary_out())    
 })
 

@@ -10,7 +10,17 @@ source("helper/ubar_plot.R")
     observeEvent(input$finalok, {
 
         f_data <- final()[, sapply(final(), is.factor)]
-        updateSelectInput(session, 'ubar_select', choices = names(f_data))
+        if (is.null(dim(f_data))) {
+        k <- final() %>% map(is.factor) %>% unlist()
+        j <- names(which(k == TRUE))
+        fdata <- tibble::as_data_frame(f_data)
+        colnames(fdata) <- j
+        updateSelectInput(session, inputId = "ubar_select",
+            choices = names(fdata))
+        } else {
+          updateSelectInput(session, 'ubar_select', choices = names(f_data))
+        }
+        
 
     })
 
@@ -27,7 +37,8 @@ source("helper/ubar_plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_barcol_", i),
-                        label = paste0("n_bcol", i))
+                        label = paste0("Bar ", i, " Color"),
+                        value = 'blue')
           })
         }
     })
@@ -56,7 +67,8 @@ source("helper/ubar_plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_bor_", i),
-                        label = paste0("n_bor_", i))
+                        label = paste0("Border Color ", i),
+                        value = 'black')
           })
         }
     })
@@ -85,7 +97,7 @@ source("helper/ubar_plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_barlabel_", i),
-                        label = paste0("n_barlabel_", i))
+                        label = paste0("Bar ", i, " Label"))
           })
         }
     })
@@ -111,7 +123,7 @@ source("helper/ubar_plot.R")
         } else {
           lapply(1:ncol, function(i) {
               numericInput(paste("n_barwidth_", i),
-                        label = paste0("n_barwidth_", i),
+                        label = paste0("Bar ", i, " Width"),
                         value = 1, min = 1)
           })
         }
@@ -130,49 +142,49 @@ source("helper/ubar_plot.R")
         colors
     })
 
-    # dynamic UI for shading density
-    output$ui_nbardensity <- renderUI({
-        ncol <- as.integer(input$nbardensity)
+    # # dynamic UI for shading density
+    # output$ui_nbardensity <- renderUI({
+    #     ncol <- as.integer(input$nbardensity)
 
-        lapply(1:ncol, function(i) {
-            numericInput(paste("n_bardensity_", i),
-                      label = paste0("n_bardensity_", i),
-                      value = 1, min = 1)
-        })
-    })
+    #     lapply(1:ncol, function(i) {
+    #         numericInput(paste("n_bardensity_", i),
+    #                   label = paste0("Bar ", i, " Density"),
+    #                   value = 0, min = 0)
+    #     })
+    # })
 
-    density_bar <- reactive({
-        ncol <- as.integer(input$nbardensity)
+    # density_bar <- reactive({
+    #     ncol <- as.integer(input$nbardensity)
 
-        collect <- list(lapply(1:ncol, function(i) {
-                        input[[paste("n_bardensity_", i)]]
-                    }))
+    #     collect <- list(lapply(1:ncol, function(i) {
+    #                     input[[paste("n_bardensity_", i)]]
+    #                 }))
 
-        colors <- unlist(collect)
+    #     colors <- unlist(collect)
 
-    })
+    # })
 
-    # dynamic UI for shading angle
-    output$ui_nbarangle <- renderUI({
-        ncol <- as.integer(input$nbarangle)
+    # # dynamic UI for shading angle
+    # output$ui_nbarangle <- renderUI({
+    #     ncol <- as.integer(input$nbarangle)
 
-        lapply(1:ncol, function(i) {
-            numericInput(paste("n_barangle_", i),
-                      label = paste0("n_barangle_", i),
-                      value = 1, min = 1)
-        })
-    })
+    #     lapply(1:ncol, function(i) {
+    #         numericInput(paste("n_barangle_", i),
+    #                   label = paste0("Bar ", i, " Angle"),
+    #                   value = 0, min = 0)
+    #     })
+    # })
 
-    angle_bar <- reactive({
-        ncol <- as.integer(input$nbarangle)
+    # angle_bar <- reactive({
+    #     ncol <- as.integer(input$nbarangle)
 
-        collect <- list(lapply(1:ncol, function(i) {
-                        input[[paste("n_barangle_", i)]]
-                    }))
+    #     collect <- list(lapply(1:ncol, function(i) {
+    #                     input[[paste("n_barangle_", i)]]
+    #                 }))
 
-        colors <- unlist(collect)
+    #     colors <- unlist(collect)
 
-    })
+    # })
 
     # dynamic UI for legend names
     output$ui_legnames <- renderUI({
@@ -180,7 +192,7 @@ source("helper/ubar_plot.R")
 
         lapply(1:ncol, function(i) {
             textInput(paste("n_names_", i),
-                      label = paste0("n_names", i))
+                      label = paste0("Legend Name ", i))
         })
     })
 
@@ -191,7 +203,7 @@ source("helper/ubar_plot.R")
 
         lapply(1:ncol, function(i) {
             numericInput(paste("n_point_", i),
-                      label = paste0("n_point", i), value = 1)
+                      label = paste0("Legend Point ", i), value = 1)
         })
     })
 
@@ -248,7 +260,7 @@ source("helper/ubar_plot.R")
             bar_plotu(
             selectedVar(), input$ubar_horiz, colours_bar(),
             borders_bar(), input$ubar_title, input$ubar_xlabel, labels_bar(),
-            input$ubar_barspace, widths_bar(), density_bar(), angle_bar(), input$ubar_axes,
+            input$ubar_barspace, widths_bar(), input$ubar_axes,
             input$ubar_axislty, input$ubar_offset, input$ubar_ylabel
         )
     })
@@ -258,7 +270,7 @@ source("helper/ubar_plot.R")
         bar_plotu(
             selectedVar(), input$ubar_horiz, colours_bar(),
             borders_bar(), input$ubar_title, input$ubar_xlabel, labels_bar(),
-            input$ubar_barspace, widths_bar(), density_bar(), angle_bar(), input$ubar_axes,
+            input$ubar_barspace, widths_bar(), input$ubar_axes,
             input$ubar_axislty, input$ubar_offset, input$ubar_ylabel,
             leg = input$leg_yn, leg_x = input$leg_x, leg_y = input$leg_y, legend = name_bar(),
             leg_point = point_bar(), leg_colour = colours_bar(), leg_boxtype = input$leg_boxtype,
@@ -275,7 +287,7 @@ source("helper/ubar_plot.R")
         bar_plotu(
             selectedVar(), input$ubar_horiz, colours_bar(),
             borders_bar(), input$ubar_title, input$ubar_xlabel, labels_bar(),
-            input$ubar_barspace, widths_bar(), density_bar(), angle_bar(), input$ubar_axes,
+            input$ubar_barspace, widths_bar(), input$ubar_axes,
             input$ubar_axislty, input$ubar_offset, input$ubar_ylabel,
             input$ubar_coltitle, input$ubar_colsub, input$ubar_colaxis,
             input$ubar_collabel, input$ubar_fontmain, input$ubar_fontsub,
@@ -300,7 +312,7 @@ source("helper/ubar_plot.R")
         bar_plotu(
             selectedVar(), input$ubar_horiz, colours_bar(),
             borders_bar(), input$ubar_title, input$ubar_xlabel, labels_bar(),
-            input$ubar_barspace, widths_bar(), density_bar(), angle_bar(), input$ubar_axes,
+            input$ubar_barspace, widths_bar(), input$ubar_axes,
             input$ubar_axislty, input$ubar_offset, input$ubar_ylabel,
             input$ubar_coltitle, input$ubar_colsub, input$ubar_colaxis,
             input$ubar_collabel, input$ubar_fontmain, input$ubar_fontsub,
@@ -318,36 +330,3 @@ source("helper/ubar_plot.R")
             input$ubar_mtextsize
         )
     })
-
-    # plot download
-    output$ubar_downloadGraph <- downloadHandler(
-
-        filename <- function() {
-
-            paste(input$ubar_fileName, ".png")
-        },
-
-        content <- function(file) {
-
-            png(file)
-
-            plot <- bar_plotu(
-                selectedVar(), input$ubar_horiz, input$ubar_title,
-                input$ubar_subtitle, input$ubar_xlabel, input$ubar_ylabel,
-                input$ubar_coltitle, input$ubar_colsub, input$ubar_colaxis,
-                input$ubar_collabel, input$ubar_fontmain, input$ubar_fontsub,
-                input$ubar_fontaxis, input$ubar_fontlab, input$ubar_cexmain,
-                input$ubar_cexsub, input$ubar_cexaxis, input$ubar_cexlab,
-                input$ubar_plottext, input$ubar_text_x_loc, input$ubar_text_y_loc,
-                input$ubar_textcolor, input$ubar_textfont, input$ubar_textsize,
-                input$ubar_mtextplot, input$ubar_mtext_side, input$ubar_mtext_line,
-                input$ubar_mtextadj, input$ubar_mtextcolor, input$ubar_mtextfont,
-                input$ubar_mtextsize
-            )
-
-            print(plot)
-
-            dev.off()
-
-        }
-    )

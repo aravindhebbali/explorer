@@ -1,6 +1,16 @@
 tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
 
 		fluidPage(
+			fluidRow(
+                 column(9, align = 'left',
+                   h4('2 Factor Bar Plot')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='bar2link1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
 
             fluidRow(
 
@@ -16,7 +26,7 @@ tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
                                 column(6,
 
                                     # select variable
-                                    selectInput('bar2_select_x', 'X Axis Variable: ',
+                                    selectInput('bar2_select_x', 'Variable 1: ',
                                                 choices = "", selected = ""
                                     ),
 
@@ -39,7 +49,7 @@ tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
                                 column(6,
 
                                     # select variable
-                                    selectInput('bar2_select_y', 'Y Axis Variable: ',
+                                    selectInput('bar2_select_y', 'Variable 2: ',
                                                    choices = "", selected = ""
                                     ),
 
@@ -67,20 +77,20 @@ tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
 													column(6,
 														tabsetPanel(type = 'tabs',
 															tabPanel('Bar Width',
-																column(6, numericInput("nbarwidth2", "Number of Bars", value = 1, min = 0)),
-																column(6, uiOutput("ui_nbarwidth2"))
+																column(4, numericInput("nbarwidth2", "Number of Bars", value = 1, min = 0)),
+																column(4, uiOutput("ui_nbarwidth2"))
 															),
 															tabPanel('Border Color',
-																column(6, numericInput("nborbar2", "Number of Border Colors", value = 0, min = 0)),
-																column(6, uiOutput("ui_nborbar2"))
+																column(4, numericInput("nborbar2", "Number of Border Colors", value = 0, min = 0)),
+																column(4, uiOutput("ui_nborbar2"))
 															),
 															tabPanel('Bar Label',
-																column(6, numericInput("nbarlabel2", "Number of Labels", value = 0, min = 0)),
+																column(4, numericInput("nbarlabel2", "Number of Labels", value = 0, min = 0)),
 																column(6, uiOutput("ui_nbarlabel2"))
 															),
 															tabPanel('Bar Color',
-																column(6, numericInput("ncolbar2", "Number of Colors", value = 0, min = 0)),
-																column(6, uiOutput("ui_ncolbar2"))
+																column(4, numericInput("ncolbar2", "Number of Colors", value = 0, min = 0)),
+																column(4, uiOutput("ui_ncolbar2"))
 															)
 														)
 													),
@@ -93,16 +103,8 @@ tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
 												tabPanel("Shading & Axis Options",
 														column(6,
 															tabsetPanel(type = 'tabs',
-																tabPanel('Shading Density',
-																column(6, numericInput("nbardensity2", "Shading Density", value = 1, min = 1)),
-																column(6, uiOutput("ui_nbardensity2"))
-																),
-																tabPanel('Shading Angle',
-																column(6, numericInput("nbarangle2", "Shading Angle", value = 1, min = 1)),
-																column(6, uiOutput("ui_nbarangle2"))
-																),
 																tabPanel('Axes',
-																	flowLayout(
+																	column(4,
 																		selectInput('bar2_axes', 'Axes',
 																								choices = c("TRUE" = TRUE, "FALSE" = FALSE),
 																								selected = "TRUE"),
@@ -288,58 +290,7 @@ tabPanel('2 Factor Bar Plot', value = 'tab_bar2',
                                 column(8, offset = 2,
                                     plotOutput('bbar_plot_final')
                                 )
-                            ),
-
-
-
-                                fluidRow(
-
-                                    column(4, align = 'left',
-
-                                        br(),
-                                        br(),
-                                        img(src = 'bar_plot.png', height = 50, width = 50),
-                                        actionButton(inputId = 'bar2_bar', label = 'Bar Plot', width = '120px'),
-                                        bsTooltip("bar2_bar", "Click here to create a bar plot.",
-                                                      "top", options = list(container = "body")),
-
-                                        br(),
-                                        br()
-
-                                    ),
-
-                                    column(4, align = 'center',
-
-                                        br(),
-                                        br(),
-                                        img(src = 'home_icon.png', height = 50, width = 50),
-                                        actionButton(inputId = 'bar2_home', label = 'Home', width = '120px'),
-                                        bsTooltip("bar2_home", "Click here to return home.",
-                                                      "top", options = list(container = "body")),
-
-                                        br(),
-                                        br()
-
-                                    ),
-
-                                    column(4, align = 'right',
-
-                                        br(),
-                                        br(),
-                                        img(src = 'box_plot.jpg', height = 50, width = 50),
-                                        actionButton(inputId = 'bar2_box', label = 'Box Plot', width = '120px'),
-                                        bsTooltip("bar2_box", "Click here to create a box plot.",
-                                                      "top", options = list(container = "body")),
-
-                                        br(),
-                                        br()
-
-                                    )
-
-                                )
-
-
-
+                            )
                         )
 
                     )

@@ -1,44 +1,48 @@
 source('helper/cross-table.R')
 
 # summary
-observe({
-    updateSelectInput(session,
-                      inputId = "var1_cross",
-                      choices = names(data()),
-                      selected = '')
+# observe({
+#     updateSelectInput(session,
+#                       inputId = "var1_cross",
+#                       choices = names(data()),
+#                       selected = '')
     
-    updateSelectInput(session,
-                      inputId = "var2_cross",
-                      choices = names(data()),
-                      selected = '')
-})
+#     updateSelectInput(session,
+#                       inputId = "var2_cross",
+#                       choices = names(data()),
+#                       selected = '')
+# })
 
 observeEvent(input$finalok, {
 
     num_data <- final()[, sapply(final(), is.factor)]
+    validate(need(!is.null(dim(num_data)), 'Please select two factor variables.'))
 
-    updateSelectInput(session,
-                      inputId = "var1_cross",
-                      choices = names(num_data))
+    if (!is.null(dim(num_data))) {
 
-    updateSelectInput(session,
-                      inputId = "var2_cross",
-                      choices = names(num_data))
-    if (dim(num_data)[2] != 0) {
+      updateSelectInput(session,
+                        inputId = "var1_cross",
+                        choices = names(num_data))
 
-      updateCheckboxGroupInput(session,
-                             inputId = 'filter_cross1',
-                             choices = levels(num_data[, 1]),
-                             selected = ''
-    )
-
-      updateCheckboxGroupInput(session,
-                               inputId = 'filter_cross2',
-                               choices = levels(num_data[, 2]),
-                               selected = ''
-      )
-        
+      updateSelectInput(session,
+                        inputId = "var2_cross",
+                        choices = names(num_data))
     }
+    # if (dim(num_data)[2] != 0) {
+
+    #   updateCheckboxGroupInput(session,
+    #                          inputId = 'filter_cross1',
+    #                          choices = levels(num_data[, 1]),
+    #                          selected = ''
+    # )
+
+    #   updateCheckboxGroupInput(session,
+    #                            inputId = 'filter_cross2',
+    #                            choices = levels(num_data[, 2]),
+    #                            selected = ''
+    #   )
+        
+    # }
     
 })
 
@@ -46,6 +50,7 @@ observeEvent(input$finalok, {
 d_cross <- eventReactive(input$submit_cross, {
     validate(need((input$var1_cross != '' & input$var2_cross != ''), 'Please select two variables.'))
     data <- final()[, c(input$var1_cross, input$var2_cross)]
+    
 })
 
 # column names
@@ -91,35 +96,33 @@ conames <- reactive({
 #     f_data
 # })
 
+
+cross_out <- eventReactive(input$submit_cross, {
+  k <- cross_table(d_cross(), as.character(input$var1_cross), 
+    as.character(input$var2_cross))
+  k
+})
+
 # cross table
 output$cross <- renderPrint({
-  cross_table(d_cross(), as.character(input$var1_cross), 
-    as.character(input$var2_cross))
+  cross_out()
 })
 
 
 output$cross_bar_stacked <- renderPlot({
-	k <- cross_table(d_cross(), as.character(input$var1_cross), 
-    as.character(input$var2_cross))
-  plot(k)
+  plot(cross_out())
 })
 
 output$cross_bar_grouped <- renderPlot({
-	k <- cross_table(d_cross(), as.character(input$var1_cross), 
-    as.character(input$var2_cross))
-  plot(k, beside = TRUE)
+  plot(cross_out(), beside = TRUE)
 })
 
 output$cross_bar_proportional <- renderPlot({
-  k <- cross_table(d_cross(), as.character(input$var1_cross), 
-    as.character(input$var2_cross))
-  plot(k, proportional = TRUE)
+  plot(cross_out(), proportional = TRUE)
 })
 
 output$cross_mosaic_plot <- renderPlot({
-	k <- cross_table(d_cross(), as.character(input$var1_cross), 
-    as.character(input$var2_cross))
-  mosaicplot(k)
+  mosaicplot(cross_out())
 })
 
 

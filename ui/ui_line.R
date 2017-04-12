@@ -1,6 +1,16 @@
 tabPanel('Line Graph', value = 'tab_line',
 	fluidPage(
 		fluidRow(
+                 column(9, align = 'left',
+                   h4('Line Chart')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='linelink1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
+		fluidRow(
 			column(12,
 				tabsetPanel(type = 'tabs',
 					tabPanel('Variables',
@@ -70,8 +80,9 @@ tabPanel('Line Graph', value = 'tab_line',
 							tabsetPanel(type = 'tabs',
 								tabPanel('Add Lines',
 									fluidRow(
+										column(4,
 										numericInput('n_lines', 'Lines', min = 0, value = 0,
-												step = 1)
+												step = 1))
 										),
 										fluidRow(
 											column(3, uiOutput('ui_nlines')),
@@ -309,56 +320,18 @@ tabPanel('Line Graph', value = 'tab_line',
 								column(6,
 										plotOutput('line_plot_8', height = '400px')
 								)
-						)
+						),
+
+						tabPanel('Plot',
+              fluidRow(
+                column(8, offset = 2,
+                  plotOutput('line_final')
+                )
+              )
+            )
 
 					)
 				)
-		),
-
-		fluidRow(
-
-            column(4, align = 'left',
-
-                br(),
-                br(),
-                img(src = 'histogram.jpg', height = 50, width = 50),
-                actionButton(inputId = 'line_hist', label = 'Histogram', width = '120px'),
-                bsTooltip("line_hist", "Click here to create a histogram.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'center',
-
-                br(),
-                br(),
-                img(src = 'home_icon.png', height = 50, width = 50),
-                actionButton(inputId = 'line_home', label = 'Home', width = '120px'),
-                bsTooltip("line_home", "Click here to return home.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            ),
-
-            column(4, align = 'right',
-
-                br(),
-                br(),
-                img(src = 'pie_chart.png', height = 50, width = 50),
-                actionButton(inputId = 'line_pie', label = 'Pie Chart', width = '120px'),
-                bsTooltip("line_pie", "Click here to create a pie chart.",
-                              "top", options = list(container = "body")),
-
-                br(),
-                br()
-
-            )
-
-        )
-			)
+		)
+	)
 )

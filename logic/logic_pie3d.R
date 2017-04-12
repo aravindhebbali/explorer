@@ -10,8 +10,19 @@ source("helper/pie3d-plot.R")
 
         f_data <- final()[, sapply(final(), is.factor)]
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'pie3_select', choices = names(f_data))
-        updateSelectInput(session, 'pie3_label', choices = names(f_data))
+        if (is.null(dim(f_data))) {
+        k <- final() %>% map(is.factor) %>% unlist()
+        j <- names(which(k == TRUE))
+        fdata <- tibble::as_data_frame(f_data)
+        colnames(fdata) <- j
+        updateSelectInput(session, inputId = "pie3_select",
+            choices = names(fdata))
+        updateSelectInput(session, inputId = "pie3_label",
+            choices = names(fdata))
+        } else {
+          updateSelectInput(session, 'pie3_select', choices = names(f_data))
+          updateSelectInput(session, 'pie3_label', choices = names(f_data))
+        }
 
     })
 
@@ -33,7 +44,8 @@ source("helper/pie3d-plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_pie3col_", i),
-                        label = paste0("n_col_pie3", i))
+                        label = paste0("Color ", i),
+                        value = 'blue')
           })
         }
     })

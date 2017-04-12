@@ -1,6 +1,16 @@
 tabPanel('Scatter Plot', value = 'tab_scatter',
   fluidPage(
     fluidRow(
+                 column(9, align = 'left',
+                   h4('Scatter Plot')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='scatterlink1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
+    fluidRow(
       column(12,
         tabsetPanel(type = 'tabs',
           tabPanel('Variables',
@@ -193,6 +203,13 @@ tabPanel('Scatter Plot', value = 'tab_scatter',
             ),
             column(8,
               plotOutput('scatter_plot_5', height = '600px')
+            )
+          ),
+          tabPanel('Plot',
+            fluidRow(
+              column(8, offset = 2,
+                plotOutput('scatter_plot_final')
+              )
             )
           )
         )

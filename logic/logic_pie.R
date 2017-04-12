@@ -10,9 +10,19 @@ source("helper/pie-plot.R")
 
         f_data <- final()[, sapply(final(), is.factor)]
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'pie_select', choices = names(f_data))
-        updateSelectInput(session, 'pie_label', choices = names(f_data))
-
+        if (is.null(dim(f_data))) {
+        k <- final() %>% map(is.factor) %>% unlist()
+        j <- names(which(k == TRUE))
+        fdata <- tibble::as_data_frame(f_data)
+        colnames(fdata) <- j
+        updateSelectInput(session, inputId = "pie_select",
+            choices = names(fdata))
+        updateSelectInput(session, inputId = "pie_label",
+            choices = names(fdata))
+        } else {
+          updateSelectInput(session, 'pie_select', choices = names(f_data))
+          updateSelectInput(session, 'pie_label', choices = names(f_data))
+        }
     })
 
     # selected data
@@ -33,7 +43,7 @@ source("helper/pie-plot.R")
         } else {
           lapply(1:ncol, function(i) {
               textInput(paste("n_piecol_", i),
-                        label = paste0("n_col_pie", i),
+                        label = paste0("Color ", i),
                         value = 'blue')
           })
         }

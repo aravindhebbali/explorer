@@ -2,6 +2,23 @@ tabPanel('F Distribution', value = 'tab_f',
 
   fluidPage(
     fluidRow(
+      column(7, align = 'left',
+        h4('F Distribution'),
+        p('Visualize how changes in degrees of freedom affect the shape of the F 
+          distribution. Compute/visualize quantiles out of given probability and 
+          probability from a given quantile.')
+      ),
+      column(5, align = 'right',
+        actionButton(inputId='fdistlink1', label="Help", icon = icon("question-circle"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr/reference/f_plot.html', '_blank')"),
+        actionButton(inputId='fdistlink2', label="Tutorial", icon = icon("university"),
+          onclick ="window.open('https://rsquaredacademy.github.io/descriptr-book/f-distribution.html', '_blank')"),
+        actionButton(inputId='fdistlink3', label="Demo", icon = icon("video-camera"),
+          onclick ="window.open('http://google.com', '_blank')")
+      )
+    ),
+    hr(),
+    fluidRow(
       column(12,
         tabsetPanel(type = 'tabs',
           tabPanel('Distribution Shape',
@@ -73,27 +90,6 @@ tabPanel('F Distribution', value = 'tab_f',
           )
         )
       )
-    ),
-
-    fluidRow(
-        column(6, align = 'center',
-            # link to upload page
-            br(),
-            br(),
-            img(src = 'upload_data.jpg', height = 50, width = 50),
-            actionButton(inputId = 'f_binom', label = 'Binomial', width = '100px'),
-            bsTooltip("f_binom", "Click here to explore binomial distribution.",
-                          "top", options = list(container = "body"))
-        ),
-        column(6, align = 'center',
-            # link to home page
-            br(),
-            br(),
-            img(src = 'home_icon.png', height = 50, width = 50),
-            actionButton(inputId = 'f_home', label = 'Home', width = '100px'),
-            bsTooltip("f_home", "Click here to return home.",
-                          "top", options = list(container = "body"))
-        )
     )
   )
 

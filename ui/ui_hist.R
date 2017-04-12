@@ -1,6 +1,16 @@
 tabPanel('Histogram', value = 'tab_hist',
 
     fluidPage(
+      fluidRow(
+                 column(9, align = 'left',
+                   h4('Histogram')
+                 ),
+                 column(3, align = 'right',
+                   actionButton(inputId='histlink1', label="Demo", icon = icon("video-camera"),
+                     onclick ="window.open('http://google.com', '_blank')")
+                 )
+               ),
+               hr(),
 
         fluidRow(
 
@@ -71,7 +81,7 @@ tabPanel('Histogram', value = 'tab_hist',
 
                     # bins
                     tabPanel('Bins',
-                      column(4,
+                      column(5,
                         tabsetPanel(type = 'tabs',
                           tabPanel('Options',
                             selectInput('bin_opt', 'Binning Options',
@@ -95,7 +105,7 @@ tabPanel('Histogram', value = 'tab_hist',
                           )
                         )
                       ),
-                      column(8,
+                      column(7,
                         plotOutput('hist_2')
                       )
                     ),
@@ -110,14 +120,6 @@ tabPanel('Histogram', value = 'tab_hist',
                           tabPanel('Border',
                             column(6, numericInput("nborhist", "Number of Border Colors", value = 0, min = 0)),
                             column(6, uiOutput("ui_nborhist"))
-                          ),
-                          tabPanel('Density',
-                            column(6, numericInput("nhistdensity", "Shading Density", value = 1, min = 1)),
-                            column(6, uiOutput("ui_nhistdensity"))
-                          ),
-                          tabPanel('Angle',
-                            column(6, numericInput("nhistangle", "Shading Angle", value = 1, min = 1)),
-                            column(6, uiOutput("ui_nhistangle"))
                           )
                         )
                       ),
@@ -343,54 +345,7 @@ tabPanel('Histogram', value = 'tab_hist',
                             column(8, offset = 2,
                                 plotOutput('hist_final')
                             )
-                        ),
-
-                        fluidRow(
-
-                            column(4, align = 'left',
-
-                                br(),
-                                br(),
-                                img(src = 'box_plot_2.jpg', height = 50, width = 50),
-                                actionButton(inputId = 'hist_box2', label = '2 Factor Box Plot', width = '140px'),
-                                bsTooltip("hist_box2", "Click here to create a 2 factor box plot.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'center',
-
-                                br(),
-                                br(),
-                                img(src = 'home_icon.png', height = 50, width = 50),
-                                actionButton(inputId = 'hist_home', label = 'Home', width = '120px'),
-                                bsTooltip("hist_home", "Click here to return home.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            ),
-
-                            column(4, align = 'right',
-
-                                br(),
-                                br(),
-                                img(src = 'line_chart.png', height = 50, width = 50),
-                                actionButton(inputId = 'hist_line', label = 'Line Chart', width = '120px'),
-                                bsTooltip("hist_line", "Click here to create a line chart.",
-                                              "top", options = list(container = "body")),
-
-                                br(),
-                                br()
-
-                            )
-
                         )
-
                     )
 
                   )

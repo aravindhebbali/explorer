@@ -46,7 +46,7 @@ group_summary.default <- function(dframe, x, y) {
 
     split_dat <- tapply(y, list(x), function(x) {
                       c(length(x), min(x), max(x), mean(x), median(x),
-                      stat_mode(x), sd(x), var(x), skewness(x),
+                      descriptr::stat_mode(x), sd(x), var(x), skewness(x),
                       kurtosis(x), stat_uss(x),
                       stat_css(x), stat_cvar(x),
                       std_error(x), stat_range(x), IQR(x))
