@@ -55,10 +55,14 @@ props <- reactive({
 
 df_chigof <- eventReactive(input$submit_chigof, {
 	validate(need((input$var_chigof != ''), 'Please select variable.'))
-    data <- final()
+  data <- final()
+  validate(need(sum(props()) == 1, 'Expected proportion must add up to 1.'))
+  k <- chisq_gof_shiny(data, as.character(input$var_chigof), props(),
+  as.logical(input$chigof_cc))
+  k
 })
 
+
 output$chigof_out <- renderPrint({
-  chisq_gof_shiny(df_chigof(), as.character(input$var_chigof), props(),
-  as.logical(input$chigof_cc))
+  df_chigof()
 })

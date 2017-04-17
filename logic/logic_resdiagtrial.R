@@ -6,11 +6,11 @@ output$ui_resdiaglink <- renderUI({
           p('Plot to detect non-linearity, unequal error variances, and outliers.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='rvsp1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_rvsp_plot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='rvsp2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/residual-diagnostics.html#residual-vs-fitted-values-plot', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='rvsp3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -20,11 +20,11 @@ output$ui_resdiaglink <- renderUI({
           h4('Residual Box Plot')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='rbplot1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_rsd_boxplot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='rbplot2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/residual-diagnostics.html#residual-box-plot', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='rbplot3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -35,11 +35,11 @@ output$ui_resdiaglink <- renderUI({
           p('Histogram of residuals for detecting violation of normality assumption.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='rhist1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_rsd_hist.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='rhist2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/residual-diagnostics.html#residual-histogram', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='rhist3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -50,11 +50,11 @@ output$ui_resdiaglink <- renderUI({
           p('Graph for detecting violation of normality assumption.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='rqq1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_rsd_qqplot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='rqq2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/residual-diagnostics.html#residual-qq-plot', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='rqq3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -309,7 +309,9 @@ resnorm_mod <- reactive({
   k
 })
 
-output$resvsplot <- renderPlot({
+
+
+resvsplot <- eventReactive(input$submit_respred_plot, {
   if(input$respred_use_prev) {
       ols_rvsp_plot(all_use_n())
     } else {
@@ -317,7 +319,7 @@ output$resvsplot <- renderPlot({
     }
 })
 
-output$resboxplot <- renderPlot({
+resboxplot <- eventReactive(input$submit_resbox_plot, {
   if(input$resbox_use_prev) {
       ols_rsd_boxplot(all_use_n())
     } else {
@@ -325,7 +327,7 @@ output$resboxplot <- renderPlot({
     }
 })
 
-output$reshistplot <- renderPlot({
+reshistplot <- eventReactive(input$submit_reshist_plot, {
   if(input$reshist_use_prev) {
       ols_rsd_hist(all_use_n())
     } else {
@@ -333,7 +335,7 @@ output$reshistplot <- renderPlot({
     }
 })
 
-output$resqqplot <- renderPlot({
+resqqplot <- eventReactive(input$submit_resqq_plot, {
   if(input$resqq_use_prev) {
       ols_rsd_qqplot(all_use_n())
     } else {
@@ -341,7 +343,7 @@ output$resqqplot <- renderPlot({
     }
 })
 
-output$resnormtest <- renderPrint({
+resnormtest <- eventReactive(input$submit_resnorm, {
   if(input$resnorm_use_prev) {
       ols_norm_test(all_use_n())
     } else {
@@ -349,4 +351,24 @@ output$resnormtest <- renderPrint({
     }
 })
 
+
+output$resvsplot <- renderPlot({
+  resvsplot()
+})
+
+output$resboxplot <- renderPlot({
+  resboxplot()
+})
+
+output$reshistplot <- renderPlot({
+  reshistplot()
+})
+
+output$resqqplot <- renderPlot({
+  resqqplot()
+})
+
+output$resnormtest <- renderPrint({
+  resnormtest()
+})
 

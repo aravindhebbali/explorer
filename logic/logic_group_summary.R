@@ -35,9 +35,22 @@ observeEvent(input$finalok, {
 
     }
 
-    updateSelectInput(session,
-                      inputId = "var_grp_summary",
-                      choices = names(num_data))
+    if (is.null(dim(num_data))) {
+        k <- final() %>% map(is.numeric) %>% unlist()
+        j <- names(which(k == TRUE))
+        numdata <- tibble::as_data_frame(num_data)
+        colnames(numdata) <- j
+        updateSelectInput(session, inputId = "var_grp_summary",
+          choices = names(numdata), selected = names(numdata))
+      } else if (ncol(num_data) < 1) {
+        updateSelectInput(session, inputId = "var_grp_summary",
+          choices = '', selected = '')
+      } else {
+        updateSelectInput(session, inputId = "var_grp_summary",
+          choices = names(num_data), selected = names(num_data))
+      }
+
+    
 })
 
 # selected data

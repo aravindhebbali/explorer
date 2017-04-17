@@ -4,20 +4,31 @@ source("helper/freq-cont.R")
 
 
     # update variable selection for bar plots
-    observe({
-        updateSelectInput(session, 'hist_select', choices = names(data()))
-    })
+    # observe({
+    #     updateSelectInput(session, 'hist_select', choices = names(data()))
+    # })
 
     observeEvent(input$finalok, {
 
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'hist_select', choices = names(num_data))
-
-
+        if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+             updateSelectInput(session, 'hist_select',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'hist_select',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'hist_select', choices = names(num_data))
+        }
     })
 
     # selected data
     hist_data <- reactive({
+        req(input$hist_select)
         box_data <- final()[, input$hist_select]
         box_data <- as.data.frame(box_data)
         names(box_data) <- as.character(input$hist_select)

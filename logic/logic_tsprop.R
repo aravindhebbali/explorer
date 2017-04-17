@@ -43,11 +43,13 @@ output$tsproptest_out <- renderPrint({
 })
 
 output$tsproptestg_out <- renderPrint({
-  if (nlevels(d_tsproptestg()[, 2]) > 2) {
-    stop('Select a dichotomous variable.')
-  } else {
-    ts_prop_grp(d_tsproptestg()[, 1], d_tsproptestg()[, 2], input$tsproptestg_type)
-  }
+  validate(need(nlevels(d_tsproptestg()[, 2]) == 2, 'Please select a binary variable.'))
+  ts_prop_grp(d_tsproptestg()[, 1], d_tsproptestg()[, 2], input$tsproptestg_type)
+  # if (nlevels(d_tsproptestg()[, 2]) > 2) {
+  #   stop('Select a dichotomous variable.')
+  # } else {
+  #   ts_prop_grp(d_tsproptestg()[, 1], d_tsproptestg()[, 2], input$tsproptestg_type)
+  # }
 })
 
 output$tspropcalc_out <- renderPrint({

@@ -40,7 +40,7 @@ observe({
   }
 })
 
-output$het_bp_out <- renderPrint({
+result_bp <- eventReactive(input$submit_het_bp, {
   if (input$het_bp_fv == FALSE) {
     if (input$bp_use_prev) {
       ols_bp_test(all_use_n(), as.logical(input$het_bp_fv), as.logical(input$het_bp_rhs),
@@ -58,6 +58,10 @@ output$het_bp_out <- renderPrint({
         as.logical(input$het_bp_mult), as.character(input$het_bp_padj))
     }
   }
+})
+
+output$het_bp_out <- renderPrint({
+  result_bp()
 })
 
 # f test for heteroskedasticity
@@ -96,7 +100,7 @@ observe({
   }
 })
 
-output$het_f_out <- renderPrint({
+result_f <- eventReactive(input$submit_het_f, {
   if (input$het_f_fv == FALSE) {
     if (input$f_use_prev) {
       ols_f_test(all_use_n(), as.logical(input$het_f_fv), as.logical(input$het_f_rhs),
@@ -112,6 +116,11 @@ output$het_f_out <- renderPrint({
       ols_f_test(het_f_mod(), as.logical(input$het_f_fv), as.logical(input$het_f_rhs))
     }
   }
+})
+
+
+output$het_f_out <- renderPrint({
+  result_f()
 })
 
 
@@ -151,7 +160,7 @@ observe({
   }
 })
 
-output$het_score_out <- renderPrint({
+result_score <- eventReactive(input$submit_het_score, {
   if (input$het_score_fv == FALSE) {
     if (input$score_use_prev) {
       ols_score_test(all_use_n(), as.logical(input$het_score_fv), as.logical(input$het_score_rhs),
@@ -169,6 +178,29 @@ output$het_score_out <- renderPrint({
   }
 })
 
+output$het_score_out <- renderPrint({
+  result_score()
+})
+
+
+# output$het_score_out <- renderPrint({
+#   if (input$het_score_fv == FALSE) {
+#     if (input$score_use_prev) {
+#       ols_score_test(all_use_n(), as.logical(input$het_score_fv), as.logical(input$het_score_rhs),
+#         input$het_score_vars)
+#     } else {
+#       ols_score_test(het_score_mod(), as.logical(input$het_score_fv), as.logical(input$het_score_rhs),
+#         input$het_score_vars)
+#     }
+#   } else {
+#     if (input$score_use_prev) {
+#       ols_score_test(all_use_n(), as.logical(input$het_score_fv), as.logical(input$het_score_rhs))
+#     } else {
+#       ols_score_test(het_score_mod(), as.logical(input$het_score_fv), as.logical(input$het_score_rhs))
+#     }
+#   }
+# })
+
 
 # bartlett test
 observe({
@@ -183,39 +215,73 @@ observe({
 observeEvent(input$finalok, {
     f_data <- final()[, sapply(final(), is.factor)]
     num_data <- final()[, sapply(final(), is.numeric)]
-    updateSelectInput(session, inputId = "var_bartest", choices = names(num_data))
-    updateSelectInput(session, inputId = "var_bartestg1", choices = names(num_data))
-    updateSelectInput(session, inputId = "var_bartestg2", choices = names(f_data))
+    if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'var_bartest',
+              choices = names(numdata), selected = names(numdata))
+            updateSelectInput(session, 'var_bartestg1',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'var_bartest',
+              choices = '', selected = '')
+             updateSelectInput(session, 'var_bartestg1',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'var_bartest', choices = names(num_data))
+             updateSelectInput(session, 'var_bartestg1', choices = names(num_data))
+        }
+
+    if (is.null(dim(f_data))) {
+            k <- final() %>% map(is.factor) %>% unlist()
+            j <- names(which(k == TRUE))
+            fdata <- tibble::as_data_frame(f_data)
+            colnames(fdata) <- j
+            updateSelectInput(session, 'var_bartestg2',
+              choices = names(fdata), selected = names(fdata))
+        } else if (ncol(f_data) < 1) {
+             updateSelectInput(session, 'var_bartestg2',
+              choices = '', selected = '')             
+        } else {
+             updateSelectInput(session, 'var_bartestg2', choices = names(f_data))
+        }
 })
 
 d_bartest <- eventReactive(input$submit_bartest, {
 	validate(need((input$var_bartest != ''), 'Please select variables'))
-    data <- final()[, c(input$var_bartest)]
+  req(input$var_bartest)
+  data <- final()[, c(input$var_bartest)]
+  ols_bartlett_test(data)
 })
 
 d_bartestg <- eventReactive(input$submit_bartestg, {
 	validate(need((input$var_bartestg1 != '' & input$var_bartestg2 != ''), 'Please select variables'))
-    data <- final()[, c(input$var_bartestg1, input$var_bartestg2)]
+  req(input$var_bartestg1)
+  req(input$var_bartestg2)
+  data <- final()[, c(input$var_bartestg1, input$var_bartestg2)]
+  k <- ols_bartlett_test(data[, 1], group_var = data[, 2])
+  k
 })
 
 output$bartest_out <- renderPrint({
-    ols_bartlett_test(d_bartest())
+  d_bartest()
 })
 
-output$bartestg_out <- renderPrint({
-    ols_bartlett_test(d_bartestg()[, 1], d_bartestg()[, 2])
-})
 
 d_bartmod <- eventReactive(input$submit_bartestf, {
 	validate(need((input$bartest_fmla != ''), 'Please specify a model.'))
 	data <- final()
+  k <- lm(input$bartest_fmla, data = data)
+  ols_bartlett_test(k)
 })
 
-bartmod <- reactive({
-	k <- lm(input$bartest_fmla, data = d_bartmod())
-	k
-})
+# bartmod <- reactive({
+	
+# 	k
+# })
 
 output$bartestf_out <- renderPrint({
-    ols_bartlett_test(bartmod())
+  d_bartmod()    
 })

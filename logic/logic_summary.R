@@ -1,24 +1,42 @@
-observe({
-    updateSelectInput(session = session,
-                      inputId = "var_summary",
-                      choices = names(data()))
-})
+# observe({
+#     updateSelectInput(session = session,
+#                       inputId = "var_summary",
+#                       choices = names(data()))
+# })
 
 observeEvent(input$finalok, {
     num_data <- final()[, sapply(final(), is.numeric)]
-    f_data <- final()[, sapply(final(), is.factor)]
-    updateSelectInput(session = session,
-                      inputId = "var_summary",
-                      choices = names(num_data),
-                      selected = names(num_data))
-
-    updateSliderInput(session = session, 
-                      inputId = 'filter_summary',
-                      min = min(num_data),
-                      max = max(num_data),
-                      step = 1,
-                      value = c(min(num_data), max(num_data))
-    )
+    if (is.null(dim(num_data))) {
+        k <- final() %>% map(is.numeric) %>% unlist()
+        j <- names(which(k == TRUE))
+        numdata <- tibble::as_data_frame(num_data)
+        colnames(numdata) <- j
+        updateSelectInput(session, inputId = "var_summary",
+            choices = names(numdata), selected = names(numdata))
+        updateSliderInput(session = session, 
+                        inputId = 'filter_summary',
+                        min = min(numdata),
+                        max = max(numdata),
+                        step = 1,
+                        value = c(min(numdata), max(numdata))
+        )
+      } else if (ncol(num_data) < 1) {
+        updateSelectInput(session, inputId = "var_summary",
+            choices = '', selected = '')
+        updateSliderInput(session = session, 
+                        inputId = 'filter_summary',
+                        value = '')
+      } else {
+          updateSelectInput(session, 'var_summary', 
+            choices = names(num_data), selected = names(num_data))
+          updateSliderInput(session = session, 
+                        inputId = 'filter_summary',
+                        min = min(num_data),
+                        max = max(num_data),
+                        step = 1,
+                        value = c(min(num_data), max(num_data))
+          )
+      }
 
     # updateSelectInput(session = session,
     #                   inputId = "var_fsummary",
@@ -45,7 +63,8 @@ observeEvent(input$finalok, {
 # selected data
 d_summary <- eventReactive(input$submit_summary, {
   validate(need(input$var_summary != '', 'Please select a variable.'))
-    data <- final()[, c(input$var_summary)]
+  req(input$var_summary)
+  data <- final()[, c(input$var_summary)]
 })
 
 
@@ -78,6 +97,8 @@ fil_data <- reactive({
   # f_data <- d_summary()[d_summary()[, 1] >= min_data & d_summary()[, 1] <= max_data, 1]
   f_data <- d_summary()[d_summary() >= min_data & d_summary() <= max_data]
 })
+
+
 
 
 # output

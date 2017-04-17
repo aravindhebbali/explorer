@@ -6,7 +6,8 @@ tabPanel('Levene Test', value = 'tab_levtest',
         p("Levene's robust test statistic for the equality of variances and the 
           two statistics proposed by Brown and Forsythe that replace the mean in 
           Levene's formula with alternative location estimators. The first alternative 
-          replaces the mean with the median. The second alternative replaces the mean with the 10.")
+          replaces the mean with the median. The second alternative replaces the mean 
+          with the 10% trimmed mean.")
       ),
       column(6, align = 'right',
         actionButton(inputId='levtestlink1', label="Help", icon = icon("question-circle"),

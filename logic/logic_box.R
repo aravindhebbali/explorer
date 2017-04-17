@@ -10,14 +10,28 @@ source("helper/ubox-plot.R")
     observeEvent(input$finalok, {
 
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'ubox_select', choices = names(num_data))
+        if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'ubox_select',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+            updateSelectInput(session, 'ubox_select',
+              choices = '', selected = '')
+        } else {
+            updateSelectInput(session, 'ubox_select', choices = names(num_data))
+        }
+        
 
 
     })
 
     # selected data
     ubox_data <- reactive({
-        box_data <- final()[, input$ubox_select]
+      req(input$ubox_select)
+      box_data <- final()[, input$ubox_select]
     })
 
     # bar plot*

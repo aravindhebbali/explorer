@@ -355,6 +355,15 @@ tabPanel('2 Factor Box Plot', value = 'tab_box2',
                           )
                       )
 
+                    ),
+
+                    tabPanel('Test',
+                      fluidRow(
+                        column(8, offset = 2,
+                          verbatimTextOutput('bbox_test')
+                          )
+                      )
+
                     )
 
                 )

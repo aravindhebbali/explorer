@@ -27,7 +27,8 @@ source("helper/pie-plot.R")
 
     # selected data
     pie_data <- reactive({
-        out <- table(final()[, input$pie_select])
+      req(input$pie_select)
+      out <- table(final()[, input$pie_select])
     })
 
     pie_labels <- reactive({

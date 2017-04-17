@@ -118,7 +118,7 @@ tabPanel('Heteroskedasticity', value = 'tab_hetero',
                         fluidRow(
                           column(2, align = 'right', br(), h5('Variables:')),
                           column(10, align = 'left',
-                              selectInput("var_bartest", label = '', width = '200px',
+                              selectInput("var_bartest", label = '', width = '660px',
                                               choices = "", selected = "", multiple = TRUE,
                                               selectize = TRUE),
                               bsTooltip("var_bartest", "Select variables.",
@@ -176,7 +176,7 @@ tabPanel('Heteroskedasticity', value = 'tab_hetero',
                       fluidPage(
                         fluidRow(
                           column(2, align = 'right', br(), h5('Model Formula:')),
-                          column(2, align = 'left',
+                          column(10, align = 'left',
                               textInput("bartest_fmla", label = '', width = '660px',
                                               value = ""),
                               bsTooltip("bartest_fmla", "Specify a formula",

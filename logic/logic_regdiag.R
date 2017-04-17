@@ -8,13 +8,18 @@ cprp_mod <- reactive({
   k
 })
 
-output$cprplot <- renderPlot({
+cprplot <- eventReactive(input$submit_cprp_plot, {
   if(input$cprp_use_prev) {
     ols_rpc_plot(all_use_n())
   } else {
     ols_rpc_plot(cprp_mod())
   }
 })
+
+output$cprplot <- renderPlot({
+  cprplot()
+})
+
 
 # added variable plot
 d_diag_advar <- eventReactive(input$submit_avplot, {
@@ -29,7 +34,7 @@ diag_advar_mod <- eventReactive(input$submit_avplot, {
 })
 
 
-output$avplot <- renderPlot({
+avplot <- eventReactive(input$submit_avplot, {
   if (input$advar_use_prev) {
     ols_avplots(all_use_n())
   } else {
@@ -37,7 +42,9 @@ output$avplot <- renderPlot({
   }
 })
 
-
+output$avplot <- renderPlot({
+  avplot()
+})
 
 
 d_resreg_mod <- eventReactive(input$submit_resreg_plot, {
@@ -79,12 +86,16 @@ d_resreg <- eventReactive(input$submit_resreg_plot, {
     data
 })
 
-output$rvsrplot <- renderPlot({
+rvsrplot <- eventReactive(input$submit_resreg_plot, {
   if(input$resreg_use_prev) {
     rvsr_plot_shiny(all_use_n(), final(), as.character(input$resreg_var))
   } else {
     rvsr_plot_shiny(resreg_mod(), final(), as.character(input$resreg_var))
   }
+})
+
+output$rvsrplot <- renderPlot({
+  rvsrplot()
 })
 
 

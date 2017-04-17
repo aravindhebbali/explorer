@@ -17,17 +17,35 @@ observeEvent(input$finalok, {
 
     num_data <- final()[, sapply(final(), is.factor)]
     validate(need(!is.null(dim(num_data)), 'Please select two factor variables.'))
+    if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.factor) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'var1_cross',
+              choices = names(numdata), selected = names(numdata))
+            updateSelectInput(session, 'var2_cross',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'var1_cross',
+              choices = '', selected = '')
+             updateSelectInput(session, 'var2_cross',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'var1_cross', choices = names(num_data))
+             updateSelectInput(session, 'var2_cross', choices = names(num_data))
+        }
 
-    if (!is.null(dim(num_data))) {
+    # if (!is.null(dim(num_data))) {
 
-      updateSelectInput(session,
-                        inputId = "var1_cross",
-                        choices = names(num_data))
+    #   updateSelectInput(session,
+    #                     inputId = "var1_cross",
+    #                     choices = names(num_data))
 
-      updateSelectInput(session,
-                        inputId = "var2_cross",
-                        choices = names(num_data))
-    }
+    #   updateSelectInput(session,
+    #                     inputId = "var2_cross",
+    #                     choices = names(num_data))
+    # }
     # if (dim(num_data)[2] != 0) {
 
     #   updateCheckboxGroupInput(session,

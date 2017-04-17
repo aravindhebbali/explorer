@@ -1,25 +1,43 @@
 source("helper/line-plot.R")
 
     # update variable selection for scatter plots
-    observe({
-        updateSelectInput(session, 'line_select_x', choices = names(data()))
-        updateSelectInput(session, 'line_select_y', choices = names(data()))
-    })
+    # observe({
+    #     updateSelectInput(session, 'line_select_x', choices = names(data()))
+    #     updateSelectInput(session, 'line_select_y', choices = names(data()))
+    # })
 
     observeEvent(input$finalok, {
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'line_select_x', choices = names(num_data))
-        updateSelectInput(session, 'line_select_y', choices = names(num_data))
+        if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'line_select_x',
+              choices = names(numdata), selected = names(numdata))
+            updateSelectInput(session, 'line_select_y',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'line_select_x',
+              choices = '', selected = '')
+             updateSelectInput(session, 'line_select_y',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'line_select_x', choices = names(num_data))
+             updateSelectInput(session, 'line_select_y', choices = names(num_data))
+        }
     })
 
 
     # selected data
     selected_xl <- reactive({
-        final()[, input$line_select_x]
+      req(input$line_select_x)
+      final()[, input$line_select_x]
     })
 
     selected_yl <- reactive({
-        final()[, input$line_select_y]
+      req(input$line_select_y)
+      final()[, input$line_select_y]
     })
 
     # dynamic UI for line colors

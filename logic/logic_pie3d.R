@@ -28,7 +28,8 @@ source("helper/pie3d-plot.R")
 
     # selected data
     pie3_data <- reactive({
-        out <- table(final()[, input$pie3_select])
+      req(input$pie3_select)
+      out <- table(final()[, input$pie3_select])
     })
 
     pie3_labels <- reactive({

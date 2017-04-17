@@ -12,6 +12,7 @@ library(tibble)
 
 shinyServer(function(input, output, session) {
 
+    source('logic/logic_modal.R', local = T)
     source('logic/logic_link.R', local = T)
     source('logic/logic_upload.R', local = T)
     source('logic/logic_transform2.R', local = T)

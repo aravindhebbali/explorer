@@ -23,19 +23,33 @@ observeEvent(input$finalok, {
         } else {
           updateSelectInput(session, 'var_anova2', choices = names(f_data))
         }
-    updateSelectInput(session,
-                      inputId = "var_anova1",
-                      choices = names(num_data))
-
+    if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'var_anova1',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'var_anova1',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'var_anova1', choices = names(num_data))
+        }
 })
 
 d_anova <- eventReactive(input$submit_anova, {
 	validate(need((input$var_anova1 != '' & input$var_anova2 != ''), 'Please select two variables.'))
+  req(input$var_anova1)
+  req(input$var_anova2)
     data <- final()[, c(input$var_anova1, input$var_anova2)]
     eval(parse(text = paste0("data$", names(data)[2], " <- as.numeric(as.character(data$", names(data)[2], "))")))
-    data
+    # data
+    k <- inferr::owanova(data, as.character(input$var_anova1), as.character(input$var_anova2))  
+    k
 })
 
 output$anova_out <- renderPrint({
-    inferr::owanova(d_anova(), as.character(input$var_anova1), as.character(input$var_anova2))
+    # inferr::owanova(d_anova(), as.character(input$var_anova1), as.character(input$var_anova2))  
+    d_anova()
 })

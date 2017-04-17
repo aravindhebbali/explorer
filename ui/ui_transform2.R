@@ -3,11 +3,12 @@ tabPanel('Transform', value = 'tab_transform',
              fluidPage(
 
                fluidRow(
-                 column(9, align = 'left',
+                 column(6, align = 'left',
                    h4('Data Transformation'),
                    p('Rename variables and modify data types.')
                  ),
-                 column(3, align = 'right',
+                 column(6, align = 'right',
+                   actionButton(inputId='transhelp', label="Help", icon = icon("question-circle")),
                    actionButton(inputId='translink3', label="Demo", icon = icon("video-camera"),
                      onclick ="window.open('http://google.com', '_blank')")
                  )

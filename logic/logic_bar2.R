@@ -3,28 +3,44 @@ source("helper/bbar-plot.R")
 
 
     # update variable selection for bar plots
-    # observe({
-    #     updateSelectInput(session, 'bar2_select_x', choices = names(data()))
-    #     updateSelectInput(session, 'bar2_select_y', choices = names(data()))
-    # })
+    observe({
+        updateSelectInput(session, 'bar2_select_x', choices = names(data()))
+        updateSelectInput(session, 'bar2_select_y', choices = names(data()))
+    })
 
     observeEvent(input$finalok, {
 
         f_data <- final()[, sapply(final(), is.factor)]
-        if (!is.null(dim(f_data))) {
-          updateSelectInput(session, 'bar2_select_x', choices = names(f_data))
-          updateSelectInput(session, 'bar2_select_y', choices = names(f_data))
+        validate(need(!is.null(dim(f_data)), 'Please select two factor variables.'))
+        if (is.null(dim(f_data))) {
+            k <- final() %>% map(is.factor) %>% unlist()
+            j <- names(which(k == TRUE))
+            fdata <- tibble::as_data_frame(f_data)
+            colnames(fdata) <- j
+            updateSelectInput(session, 'bar2_select_x',
+              choices = names(fdata), selected = names(fdata))
+            updateSelectInput(session, 'bar2_select_y',
+              choices = names(fdata), selected = names(fdata))
+        } else if (ncol(f_data) < 1) {
+             updateSelectInput(session, 'bar2_select_x',
+              choices = '', selected = '')
+             updateSelectInput(session, 'bar2_select_y',
+              choices = '', selected = '')             
+        } else {
+             updateSelectInput(session, 'bar2_select_x', choices = names(f_data))
+             updateSelectInput(session, 'bar2_select_y', choices = names(f_data))
         }
-        
     })
 
     # selected data
     selected_x_bar2 <- reactive({
-        bar_data <- final()[, input$bar2_select_x]
+      req(input$bar2_select_x)
+      bar_data <- final()[, input$bar2_select_x]
     })
 
     selected_y_bar2 <- reactive({
-        bar_data <- final()[, input$bar2_select_y]
+      req(input$bar2_select_y)
+      bar_data <- final()[, input$bar2_select_y]
     })
 
     counts_bar2 <- reactive({

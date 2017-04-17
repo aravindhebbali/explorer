@@ -20,13 +20,24 @@ observeEvent(input$finalok, {
 
 d_mcnemar <- eventReactive(input$submit_mcnemar, {
 	validate(need((input$var_mcnemar1 != '' & input$var_mcnemar2 != ''), 'Please select variables.'))
+  req(input$var_mcnemar1)
+  req(input$var_mcnemar2)
   data <- final()[, c(input$var_mcnemar1, input$var_mcnemar2)]
 })
 
+result1 <- eventReactive(input$submit_mcnemar, {
+  table(d_mcnemar()[, 1], d_mcnemar()[, 2])
+})
+
 output$mcnemar_out <- renderPrint({
-  mcnemar_test(table(d_mcnemar()[, 1], d_mcnemar()[, 2]))
+  validate(need((nlevels(d_mcnemar()[, 1]) == 2 & nlevels(d_mcnemar()[, 2]) == 2), 'Please select binary variables.'))
+  mcnemar_test(result1())
+})
+
+result2 <- eventReactive(input$submit_mcnemar, {
+  matrix(c(input$mc_00, input$mc_10, input$mc_01, input$mc_11), nrow = 2)
 })
 
 output$mcnemarc_out <- renderPrint({
-  mcnemar_test(matrix(c(input$mc_00, input$mc_10, input$mc_01, input$mc_11), nrow = 2))
+  mcnemar_test(result2())
 })

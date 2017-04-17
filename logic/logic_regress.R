@@ -1,12 +1,14 @@
 d_regress <- eventReactive(input$submit_regress, {
 	validate(need((input$regress_fmla != ''), 'Please specify model'))
-    data <- final()
+  data <- final()
+  k <- ols_regress(input$regress_fmla, data = data)
+  k
 })
 
 model <- reactive({
-	k <- ols_regress(input$regress_fmla, data = d_regress())
+	d_regress()
 })
 
 output$regress_out <- renderPrint({
-    ols_regress(input$regress_fmla, data = d_regress())
+    d_regress()
 })

@@ -1,26 +1,49 @@
 source('helper/freq-cont.R')
 
 # descriptive statistics
-observe({
-    updateSelectInput(session,
-                      inputId = "var_freq_quant",
-                      choices = names(data()),
-                      selected = '')
+# observe({
+#     updateSelectInput(session,
+#                       inputId = "var_freq_quant",
+#                       choices = names(data()),
+#                       selected = '')
     
-})
+# })
 
 observeEvent(input$finalok, {
     num_data <- final()[, sapply(final(), is.numeric)]
-    updateSelectInput(session,
-                      inputId = "var_freq_quant",
-                      choices = names(num_data))
-    updateSliderInput(session = session, 
-                      inputId = 'filter_quant',
-                      min = min(num_data),
-                      max = max(num_data),
-                      step = 1,
-                      value = c(min(num_data), max(num_data))
-    )
+    if (is.null(dim(num_data))) {
+        k <- final() %>% map(is.numeric) %>% unlist()
+        j <- names(which(k == TRUE))
+        numdata <- tibble::as_data_frame(num_data)
+        colnames(numdata) <- j
+        updateSelectInput(session, inputId = "var_freq_quant",
+          choices = names(numdata))
+        updateSliderInput(session = session, 
+          inputId = 'filter_quant',
+          min = min(numdata),
+          max = max(numdata),
+          step = 1,
+          value = c(min(numdata), max(numdata))
+        )
+      } else if (ncol(num_data) < 1) {
+        updateSelectInput(session, inputId = "var_freq_quant",
+            choices = '', selected = '')
+        updateSliderInput(session = session, 
+                        inputId = 'filter_quant',
+                        value = '')
+      } else {
+          updateSelectInput(session, 'var_freq_quant', 
+            choices = names(num_data), selected = names(num_data))
+          updateSliderInput(session = session, 
+                        inputId = 'filter_quant',
+                        min = min(num_data),
+                        max = max(num_data),
+                        step = 1,
+                        value = c(min(num_data), max(num_data))
+          )
+      }
+    
+    
 })
 
 # selected data

@@ -3,13 +3,14 @@ source("helper/ubar_plot.R")
 
 
     # update variable selection for bar plots
-    observe({
-        updateSelectInput(session, 'ubar_select', choices = names(data()))
-    })
+    # observe({
+    #     updateSelectInput(session, 'ubar_select', choices = names(data()))
+    # })
 
     observeEvent(input$finalok, {
 
         f_data <- final()[, sapply(final(), is.factor)]
+        validate(need(!dim(f_data)[2] == 0, 'No factor variables in the data.'))
         if (is.null(dim(f_data))) {
         k <- final() %>% map(is.factor) %>% unlist()
         j <- names(which(k == TRUE))
@@ -17,8 +18,10 @@ source("helper/ubar_plot.R")
         colnames(fdata) <- j
         updateSelectInput(session, inputId = "ubar_select",
             choices = names(fdata))
+        } else if (dim(f_data)[2] == 0) {
+          updateSelectInput(session, 'ubar_select', choices = '', selected = '')
         } else {
-          updateSelectInput(session, 'ubar_select', choices = names(f_data))
+          updateSelectInput(session, 'ubar_select', choices = names(f_data))  
         }
         
 
@@ -26,7 +29,8 @@ source("helper/ubar_plot.R")
 
     # selected data
     selectedVar <- reactive({
-        bar_data <- final()[, input$ubar_select]
+      req(input$ubar_select)
+      bar_data <- final()[, input$ubar_select]    
     })
 
     # dynamic UI for bar colors

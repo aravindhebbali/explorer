@@ -1,23 +1,41 @@
 source("helper/scatter-plot.R")
 
-    observe({
-        updateSelectInput(session, 'scatter_select_x', choices = names(data()))
-        updateSelectInput(session, 'scatter_select_y', choices = names(data()))
-    })
+    # observe({
+    #     updateSelectInput(session, 'scatter_select_x', choices = names(data()))
+    #     updateSelectInput(session, 'scatter_select_y', choices = names(data()))
+    # })
 
     observeEvent(input$finalok, {
         num_data <- final()[, sapply(final(), is.numeric)]
-        updateSelectInput(session, 'scatter_select_x', choices = names(num_data))
-        updateSelectInput(session, 'scatter_select_y', choices = names(num_data))
+        if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'scatter_select_x',
+              choices = names(numdata), selected = names(numdata))
+            updateSelectInput(session, 'scatter_select_y',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'scatter_select_x',
+              choices = '', selected = '')
+             updateSelectInput(session, 'scatter_select_y',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'scatter_select_x', choices = names(num_data))
+             updateSelectInput(session, 'scatter_select_y', choices = names(num_data))
+        }
     })
 
     # selected data
     selected_x <- reactive({
-        out <- final()[, input$scatter_select_x]
+      req(input$scatter_select_x)
+      out <- final()[, input$scatter_select_x]
     })
 
     selected_y <- reactive({
-        out <- final()[, input$scatter_select_y]
+      req(input$scatter_select_y)
+      out <- final()[, input$scatter_select_y]
     })
 
     output$ui_xrange_min <- renderUI({

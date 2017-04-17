@@ -312,9 +312,7 @@ output$ui_mfitout <- renderUI({
   } 
 })
 
-
-
-output$mfitrfs <- renderPlot({
+mfitrfs <- eventReactive(input$submit_rfsplot, {
   if (input$rfs_use_prev) {
       ols_rfs_plot(all_use_n())
     } else {
@@ -322,7 +320,7 @@ output$mfitrfs <- renderPlot({
     }
 })
 
-output$mfitcorr <- renderPrint({
+mfitcorr <- eventReactive(input$submit_corr, {
   if(input$corr_use_prev) {
       ols_correlations(all_use_n())
     } else {
@@ -330,7 +328,7 @@ output$mfitcorr <- renderPrint({
     }
 })
 
-output$mfitovfp <- renderPlot({
+mfitovfp <- eventReactive(input$submit_ovsplot, {
   if (input$ovsp_use_prev) {
       ols_ovsp_plot(all_use_n())
     } else {
@@ -338,7 +336,7 @@ output$mfitovfp <- renderPlot({
     }
 })
 
-output$mfitlfit <- renderPrint({
+mfitlfit <- eventReactive(input$submit_lfit, {
   if (input$lfit_use_prev) {
       ols_pure_error_anova(all_use_n())
     } else {
@@ -346,12 +344,33 @@ output$mfitlfit <- renderPrint({
     }
 })
 
-output$mfitdpanel <- renderPlot({
+mfitdpanel <- eventReactive(input$submit_dpanel, {
   if(input$dpanel_use_prev) {
       ols_diagnostic_panel(all_use_n())
     } else {
       ols_diagnostic_panel(dpanel_mod())
     }
+})
+
+
+output$mfitrfs <- renderPlot({
+  mfitrfs()
+})
+
+output$mfitcorr <- renderPrint({
+  mfitcorr()
+})
+
+output$mfitovfp <- renderPlot({
+  mfitovfp()
+})
+
+output$mfitlfit <- renderPrint({
+  mfitlfit()
+})
+
+output$mfitdpanel <- renderPlot({
+  mfitdpanel()
 })
 
 

@@ -66,11 +66,11 @@ output$ui_inflobslink <- renderUI({
           p('Plot for detecting outliers.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='dsrvsplink1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_dsrvsp_plot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='dsrvsplink2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/measures-of-influence.html#deleted-studentized-residual-vs-fitted-values-plot', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='dsrvsplink3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -96,11 +96,11 @@ output$ui_inflobslink <- renderUI({
           p('Graph for detecting influential observations.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='srvslev1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_rsdlev_plot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='srvslev2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/measures-of-influence.html#studentized-residuals-vs-leverage-plot-1', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='srvslev3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -111,11 +111,11 @@ output$ui_inflobslink <- renderUI({
           p('Graph for identifying outliers.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='srplot1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_srsd_plot.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='srplot2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/measures-of-influence.html#studentized-residual-plot', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='srplot3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -126,11 +126,11 @@ output$ui_inflobslink <- renderUI({
           p('Graph for identifying outliers.')
         ),
         column(6, align = 'right',
-          actionButton(inputId='mlr1', label="Help", icon = icon("question-circle"),
+          actionButton(inputId='srchart1', label="Help", icon = icon("question-circle"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr/reference/ols_srsd_chart.html', '_blank')"),
-          actionButton(inputId='mlr2', label="Tutorial", icon = icon("university"),
+          actionButton(inputId='srchart2', label="Tutorial", icon = icon("university"),
             onclick ="window.open('https://rsquaredacademy.github.io/olsrr-book/measures-of-influence.html#studentized-residual-chart', '_blank')"),
-          actionButton(inputId='mlr3', label="Demo", icon = icon("video-camera"),
+          actionButton(inputId='srchart3', label="Demo", icon = icon("video-camera"),
             onclick ="window.open('http://google.com', '_blank')")
         )
       )
@@ -583,67 +583,106 @@ output$ui_inflobsplot <- renderUI({
   } 
 })
 
+result_cdbp <- eventReactive(input$submit_cooksb, {
+  if (input$cdbp_use_prev) {
+    ols_cooksd_barplot(all_use_n())
+  } else {
+    ols_cooksd_barplot(cdbp_mod())
+  }
+})
+
+result_cdc <- eventReactive(input$submit_cooksc, {
+  if (input$cooksc_use_prev) {
+      ols_cooksd_chart(all_use_n())
+  } else {
+      ols_cooksd_chart(cdc_mod())
+  }
+})
+
+result_potres <- eventReactive(input$submit_potres_plot, {
+  if(input$potres_use_prev) {
+      ols_potrsd_plot(all_use_n())
+  } else {
+      ols_potrsd_plot(potres_mod())
+  }
+})
+
+result_dfbetas <- eventReactive(input$submit_dfbetas, {
+  if (input$dfb_use_prev) {
+      ols_dfbetas_panel(all_use_n())
+  } else {
+      ols_dfbetas_panel(dfbetas_mod())
+  }
+})
+
+result_dsrvsp <- eventReactive(input$submit_dsresp_plot, {
+  if(input$dsresp_use_prev) {
+      ols_dsrvsp_plot(all_use_n())
+  } else {
+      ols_dsrvsp_plot(dsresp_mod())
+  }
+})
+
+result_dffits <- eventReactive(input$submit_dffits, {
+  if (input$dfits_use_prev) {
+    ols_dffits_plot(all_use_n())
+  } else {
+    ols_dffits_plot(dfits_mod())
+  }
+})
+
+result_srvslev <- eventReactive(input$submit_sreslev_plot, {
+  if(input$sreslev_use_prev) {
+    ols_rsdlev_plot(all_use_n())
+  } else {
+    ols_rsdlev_plot(sreslev_mod())
+  }
+})
+
+result_srplot <- eventReactive(input$submit_sresp_plot, {
+  if(input$sres_use_prev) {
+    ols_srsd_plot(all_use_n())
+  } else {
+    ols_srsd_plot(sres_mod())
+  }
+})
+
+result_srchart <- eventReactive(input$submit_sreschart_plot, {
+  if(input$sreschart_use_prev) {
+    ols_srsd_chart(all_use_n())
+  } else {
+    ols_srsd_chart(sreschart_mod())
+  }
+})
+
+result_hadi <- eventReactive(input$submit_hadiplot, {
+  if (input$hadip_use_prev) {
+    ols_hadi_plot(all_use_n())
+  } else {
+    ols_hadi_plot(hadi_mod())
+  }
+})
 
 output$inflobsplot <- renderPlot({
   if (input$inflobs_select == "Cook's D Bar Plot") {
-    if (input$cdbp_use_prev) {
-      ols_cooksd_barplot(all_use_n())
-    } else {
-      ols_cooksd_barplot(cdbp_mod())
-    }
+    result_cdbp()    
   } else if (input$inflobs_select == "Potential Residual Plot") {
-    if(input$potres_use_prev) {
-      ols_potrsd_plot(all_use_n())
-    } else {
-      ols_potrsd_plot(potres_mod())
-    }
+    result_potres()
   } else if (input$inflobs_select == "Cook's D Chart") {
-    if (input$cooksc_use_prev) {
-      ols_cooksd_chart(all_use_n())
-    } else {
-      ols_cooksd_chart(cdc_mod())
-    }
+    result_cdc()
   } else if (input$inflobs_select == "DFBETAs Panel") {
-    if (input$dfb_use_prev) {
-      ols_dfbetas_panel(all_use_n())
-    } else {
-      ols_dfbetas_panel(dfbetas_mod())
-    }
+    result_dfbetas()
   } else if (input$inflobs_select == "Deleted Stud Resid vs Fitted") {
-    if(input$dsresp_use_prev) {
-      ols_rsdlev_plot(all_use_n())
-    } else {
-      ols_rsdlev_plot(dsresp_mod())
-    }
+    result_dsrvsp()
   } else if (input$inflobs_select == "DFFITS Plot") {
-    if (input$dfits_use_prev) {
-      dffits_plot(all_use_n())
-    } else {
-      dffits_plot(dfits_mod())
-    }
+    result_dffits()
   } else if (input$inflobs_select == "Studentized Residuals vs Leverage") {
-    if(input$sreslev_use_prev) {
-      studvslev_plot(all_use_n())
-    } else {
-      studvslev_plot(sreslev_mod())
-    }
+    result_srvslev()
   } else if (input$inflobs_select == "Studentized Residual Plot") {
-    if(input$sres_use_prev) {
-      ols_srsd_plot(all_use_n())
-    } else {
-      ols_srsd_plot(sres_mod())
-    }
+    result_srplot()
   } else if (input$inflobs_select == "Studentized Residual Chart") {
-    if(input$sreschart_use_prev) {
-      ols_srsd_chart(all_use_n())
-    } else {
-      ols_srsd_chart(sreschart_mod())
-    }
+    result_srchart()
   } else if (input$inflobs_select == "Hadi Plot") {
-    if (input$hadip_use_prev) {
-      ols_hadi_plot(all_use_n())
-    } else {
-      ols_hadi_plot(hadi_mod())
-    }
+    result_hadi()
   } 
 })

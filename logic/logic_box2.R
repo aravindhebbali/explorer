@@ -22,29 +22,54 @@ source("helper/bbox-plot.R")
         } else {
           updateSelectInput(session, 'bbox_select_x', choices = names(f_data))
         }
-        updateSelectInput(session, 'bbox_select_y', choices = names(num_data))
+        if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'bbox_select_y',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+            updateSelectInput(session, 'bbox_select_y',
+              choices = '', selected = '')
+        } else {
+            updateSelectInput(session, 'bbox_select_y', choices = names(num_data))
+        }
     })
+
+    num_data <- eventReactive(input$finalok, {
+      numdata <- final()[, sapply(final(), is.factor)]
+      if (is.factor(numdata)) {
+        out <- 1
+      } else {
+        out <- ncol(numdata)  
+      }
+      out
+    })    
 
     # selected data
     bbox_x <- reactive({
-        num_data <- final()[, sapply(final(), is.factor)]
-        if (ncol(num_data) > 0) {
-          box_data <- final()[, input$bbox_select_x]    
+        req(input$bbox_select_x)
+        if (num_data() > 0) {
+          box_data <- final()[, input$bbox_select_x]          
         } else {
-          NULL
+          box_data <- NULL
         }
-        
+        box_data
     })
 
     bbox_y <- reactive({
-        box_data <- final()[, input$bbox_select_y]
+      req(input$bbox_select_y)
+      box_data <- final()[, input$bbox_select_y]
     })
 
     n_labels <- reactive({
+        if (!is.null(bbox_x()))
         k <- nlevels(bbox_x())
     })
 
     observe({
+        if (!is.null(bbox_x()))
         updateNumericInput(session, 'nbox2label', value = n_labels())
     })
 

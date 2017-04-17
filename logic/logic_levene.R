@@ -10,8 +10,24 @@ observe({
 observeEvent(input$finalok, {
     f_data <- final()[, sapply(final(), is.factor)]
     num_data <- final()[, sapply(final(), is.numeric)]
-    updateSelectInput(session, inputId = "var_levtest", choices = names(num_data))
-    updateSelectInput(session, inputId = "var_levtestg1", choices = names(num_data))
+    if (is.null(dim(num_data))) {
+            k <- final() %>% map(is.numeric) %>% unlist()
+            j <- names(which(k == TRUE))
+            numdata <- tibble::as_data_frame(num_data)
+            colnames(numdata) <- j
+            updateSelectInput(session, 'var_levtest',
+              choices = names(numdata), selected = names(numdata))
+            updateSelectInput(session, 'var_levtestg1',
+              choices = names(numdata), selected = names(numdata))
+        } else if (ncol(num_data) < 1) {
+             updateSelectInput(session, 'var_levtest',
+              choices = '', selected = '')
+             updateSelectInput(session, 'var_levtestg1',
+              choices = '', selected = '')
+        } else {
+             updateSelectInput(session, 'var_levtest', choices = names(num_data))
+             updateSelectInput(session, 'var_levtestg1', choices = names(num_data))
+        }
     if (is.null(dim(f_data))) {
         k <- final() %>% map(is.factor) %>% unlist()
         j <- names(which(k == TRUE))

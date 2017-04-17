@@ -22,15 +22,18 @@ observeEvent(input$finalok, {
 
 d_binomtest <- eventReactive(input$submit_binomtest, {
 	validate(need((input$var_binomtest != ''), 'Please select two variables.'))
-    data <- final()[, c(input$var_binomtest)]
+  req(input$var_binomtest)
+  data <- final()[, c(input$var_binomtest)]
 })
 
 output$binomtest_out <- renderPrint({
-  if (nlevels(d_binomtest()) > 2) {
-    stop('Select a dichotomous variable.')
-  } else {
-    binom_test(d_binomtest(), input$binomtest_prob)
-  }
+  validate(need(nlevels(d_binomtest()) == 2, 'Please select a binary variable.'))
+  binom_test(d_binomtest(), input$binomtest_prob)
+  # if (nlevels(d_binomtest()) > 2) {
+  #   stop('Select a dichotomous variable.')
+  # } else {
+  #   binom_test(d_binomtest(), input$binomtest_prob)
+  # }
     
 })
 
