@@ -28,7 +28,10 @@ tabPanel('Measures of Influence', value = 'tab_inflobs',
     fluidRow(
       br(),
       column(12, uiOutput('ui_inflobsplot'))
-      
+    ),
+    fluidRow(
+      br(),
+      column(12, uiOutput('ui_inflobsprint'))
     )
   )
 )

@@ -583,6 +583,30 @@ output$ui_inflobsplot <- renderUI({
   } 
 })
 
+output$ui_inflobsprint <- renderUI({
+  if (input$inflobs_select == "Cook's D Bar Plot") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Potential Residual Plot") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Cook's D Chart") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "DFBETAs Panel") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Deleted Stud Resid vs Fitted") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "DFFITS Plot") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Studentized Residuals vs Leverage") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Studentized Residual Plot") {
+   column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Studentized Residual Chart") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } else if (input$inflobs_select == "Hadi Plot") {
+    column(12, align = 'center', verbatimTextOutput('inflobs'))
+  } 
+})
+
 result_cdbp <- eventReactive(input$submit_cooksb, {
   if (input$cdbp_use_prev) {
     ols_cooksd_barplot(all_use_n())
@@ -684,5 +708,33 @@ output$inflobsplot <- renderPlot({
     result_srchart()
   } else if (input$inflobs_select == "Hadi Plot") {
     result_hadi()
+  } 
+})
+
+output$inflobs <- renderPrint({
+  if (input$inflobs_select == "Cook's D Bar Plot") {
+    k <- result_cdbp()
+    k
+  } else if (input$inflobs_select == "Cook's D Chart") {
+    k <- result_cdc()
+    k
+  } else if (input$inflobs_select == "DFBETAs Panel") {
+    k <- result_dfbetas()
+    k
+  } else if (input$inflobs_select == "Deleted Stud Resid vs Fitted") {
+    k <- result_dsrvsp()
+    k
+  } else if (input$inflobs_select == "DFFITS Plot") {
+    k <- result_dffits()
+    k
+  } else if (input$inflobs_select == "Studentized Residuals vs Leverage") {
+    k <- result_srvslev()
+    k
+  } else if (input$inflobs_select == "Studentized Residual Plot") {
+    k <- result_srplot()
+    k
+  } else if (input$inflobs_select == "Studentized Residual Chart") {
+    k <- result_srchart()
+    k
   } 
 })
