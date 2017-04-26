@@ -27,8 +27,10 @@ d_runs <- eventReactive(input$submit_runs, {
   data <- final()[, c(input$var_runs)]
   out <- runs_test(data, as.logical(input$runs_drop), as.logical(input$runs_split),
     as.logical(input$runs_mean), input$runs_thold)
+  out
 })
 
 output$runs_out <- renderPrint({
   d_runs()
 })
+
