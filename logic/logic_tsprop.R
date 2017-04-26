@@ -29,22 +29,31 @@ observeEvent(input$finalok, {
 })
 
 d_tsproptest <- eventReactive(input$submit_tsproptest, {
+  req(input$var_tsproptest1)
+  req(input$var_tsproptest2)
 	validate(need((input$var_tsproptest1 != '' & input$var_tsproptest2 != ''), 'Please select variable.'))
-    data <- final()[, c(input$var_tsproptest1, input$var_tsproptest2)]
+  data <- final()[, c(input$var_tsproptest1, input$var_tsproptest2)]
+  out <- ts_prop_test(data[, 1], data[, 2], input$tsproptest_type)
+  out
 })
 
 d_tsproptestg <- eventReactive(input$submit_tsproptestg, {
+  req(input$var_tsproptestg1)
+  req(input$var_tsproptestg2)
 	validate(need((input$var_tsproptestg1 != '' & input$var_tsproptestg2 != ''), 'Please select variable.'))
-    data <- final()[, c(input$var_tsproptestg1, input$var_tsproptestg2)]
+  data <- final()[, c(input$var_tsproptestg1, input$var_tsproptestg2)]
+  out <- ts_prop_grp(data[, 1], data[, 2], input$tsproptestg_type)
+  out
 })
 
 output$tsproptest_out <- renderPrint({
-    ts_prop_test(d_tsproptest()[, 1], d_tsproptest()[, 2], input$tsproptest_type)
+    d_tsproptest()
 })
 
 output$tsproptestg_out <- renderPrint({
-  validate(need(nlevels(d_tsproptestg()[, 2]) == 2, 'Please select a binary variable.'))
-  ts_prop_grp(d_tsproptestg()[, 1], d_tsproptestg()[, 2], input$tsproptestg_type)
+  d_tsproptestg()
+  # validate(need(nlevels(d_tsproptestg()[, 2]) == 2, 'Please select a binary variable.'))
+  # ts_prop_grp(d_tsproptestg()[, 1], d_tsproptestg()[, 2], input$tsproptestg_type)
   # if (nlevels(d_tsproptestg()[, 2]) > 2) {
   #   stop('Select a dichotomous variable.')
   # } else {
@@ -52,7 +61,11 @@ output$tsproptestg_out <- renderPrint({
   # }
 })
 
-output$tspropcalc_out <- renderPrint({
-    ts_prop_calc(input$n1_tspropcalc, input$n2_tspropcalc, input$prop_tspropcalc1,
+tspropcalc <- eventReactive(input$submit_tspropcalc, {
+  ts_prop_calc(input$n1_tspropcalc, input$n2_tspropcalc, input$prop_tspropcalc1,
       input$prop_tspropcalc2, input$tspropcalc_type)
+})
+
+output$tspropcalc_out <- renderPrint({
+  tspropcalc()
 })

@@ -41,33 +41,39 @@ observeEvent(input$finalok, {
 })
 
 d_levtest <- eventReactive(input$submit_levtest, {
+  req(input$var_levtest)
 	validate(need((input$var_levtest != ''), 'Please select variables'))
-    data <- final()[, c(input$var_levtest)]
+  data <- final()[, c(input$var_levtest)]
+  out <- levene_test(data)
+  out
 })
 
 d_levtestg <- eventReactive(input$submit_levtestg, {
+  req(input$var_levtestg1)
+  req(input$var_levtestg2)
 	validate(need((input$var_levtestg1 != '' & input$var_levtestg2 != ''), 'Please select variables'))
-    data <- final()[, c(input$var_levtestg1, input$var_levtestg2)]
+  data <- final()[, c(input$var_levtestg1, input$var_levtestg2)]
+  out <- levene_test(data[, 1], group_var = data[, 2])
+  out
 })
 
 d_levmod <- eventReactive(input$submit_levtestf, {
+  req(input$levtest_fmla)
   validate(need((input$levtest_fmla != ''), 'Please specify a model'))
-    data <- final()
-})
-
-lev_mod <- reactive({
-  k <- lm(input$levtest_fmla, data = d_levmod())
-  k
+  data <- final()
+  k <- lm(input$levtest_fmla, data = data)
+  out <- levene_test(k)
+  out
 })
 
 output$levtest_out <- renderPrint({
-    levene_test(d_levtest())
+  d_levtest()
 })
 
 output$levtestg_out <- renderPrint({
-    levene_test(d_levtestg()[, 1], group_var = d_levtestg()[, 2])
+  d_levtestg()
 })
 
 output$levtestf_out <- renderPrint({
-    levene_test(lev_mod())
+  d_levmod()
 })

@@ -3,7 +3,7 @@ tabPanel('One Sample Variance', value = 'tab_osvartest',
     fluidRow(
       column(6, align = 'left',
         h4('One Sample Variance Test'),
-        p('performs tests on the equality of standard deviations (variances).It 
+        p('Performs tests on the equality of standard deviations (variances).It 
           tests that the standard deviation of a sample is equal to a hypothesized value.')
       ),
       column(6, align = 'right',
@@ -25,7 +25,7 @@ tabPanel('One Sample Variance', value = 'tab_osvartest',
                     "left", options = list(container = "body"))),
       column(2, align = 'right', br(), h5('Alternative:')),
       column(4, align = 'left',
-        selectInput('osvartest_type', '',
+        selectInput('osvartest_type', '', width = '200px',
           choices = c("both", "less", "greater", "all"),
           selected = "both"),
         bsTooltip("osvartest_type", "Alternative hypothesis",
@@ -36,7 +36,7 @@ tabPanel('One Sample Variance', value = 'tab_osvartest',
     fluidRow(
       column(2, align = 'right', br(), h5('Conf Int')),
       column(4, align = 'left',
-          numericInput('osvartest_conf', label = '',
+          numericInput('osvartest_conf', label = '', width = '200px',
                            min = 0, value = 0.95, step = 0.01),
           bsTooltip("osvartest_conf", "Confidence Level",
                     "bottom", options = list(container = "body"))),

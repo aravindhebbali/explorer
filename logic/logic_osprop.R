@@ -22,16 +22,22 @@ observeEvent(input$finalok, {
 d_osproptest <- eventReactive(input$submit_osproptest, {
   req(input$var_osproptest)
   data <- final()[, c(input$var_osproptest)]
+  validate(need(nlevels(data) == 2, 'Please select a binary variable.'))
+  out <- prop_test(data, input$osproptest_prob, input$osproptest_type)
+  out 
 })
 
 output$osproptest_out <- renderPrint({
-  validate(need(nlevels(d_osproptest()) == 2, 'Please select a binary variable.'))
-  prop_test(d_osproptest(), input$osproptest_prob, input$osproptest_type)
+  d_osproptest()
+})
+
+ospropcalc <- eventReactive(input$submit_ospropcalc, {
+  prop_test(n = input$n_ospropcalc, phat = as.numeric(input$p_ospropcalc), prob = input$prob_ospropcalc,
+      alternative = input$ospropcalc_type)
 })
 
 output$ospropcalc_out <- renderPrint({
-  prop_test(n = input$n_ospropcalc, phat = as.numeric(input$p_ospropcalc), prob = input$prob_ospropcalc,
-      alternative = input$ospropcalc_type)
+  ospropcalc()
 })
 
 

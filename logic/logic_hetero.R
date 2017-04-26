@@ -256,6 +256,10 @@ d_bartest <- eventReactive(input$submit_bartest, {
   ols_bartlett_test(data)
 })
 
+output$bartest_out <- renderPrint({
+  d_bartest()
+})
+
 d_bartestg <- eventReactive(input$submit_bartestg, {
 	validate(need((input$var_bartestg1 != '' & input$var_bartestg2 != ''), 'Please select variables'))
   req(input$var_bartestg1)
@@ -265,8 +269,8 @@ d_bartestg <- eventReactive(input$submit_bartestg, {
   k
 })
 
-output$bartest_out <- renderPrint({
-  d_bartest()
+output$bartestg_out <- renderPrint({
+  d_bartestg()
 })
 
 
