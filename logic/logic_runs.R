@@ -20,12 +20,15 @@ observeEvent(input$finalok, {
     updateSelectInput(session, 'var_runs', choices = names(num_data))
 })
 
+
 d_runs <- eventReactive(input$submit_runs, {
+  req(input$var_runs)
 	validate(need((input$var_runs != ''), 'Please select variables.'))
   data <- final()[, c(input$var_runs)]
+  out <- runs_test(data, as.logical(input$runs_drop), as.logical(input$runs_split),
+    as.logical(input$runs_mean), input$runs_thold)
 })
 
 output$runs_out <- renderPrint({
-  runs_test(d_runs(), as.logical(input$runs_drop), as.logical(input$runs_split),
-    as.logical(input$runs_mean), input$runs_thold)
+  d_runs()
 })

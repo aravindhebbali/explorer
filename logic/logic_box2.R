@@ -64,13 +64,18 @@ source("helper/bbox-plot.R")
     })
 
     n_labels <- reactive({
-        if (!is.null(bbox_x()))
-        k <- nlevels(bbox_x())
+        if (!is.null(bbox_x())) {
+          k <- nlevels(bbox_x())    
+        }
+        k
     })
 
     observe({
-        if (!is.null(bbox_x()))
-        updateNumericInput(session, 'nbox2label', value = n_labels())
+        req(input$bbox_select_x)
+        if (!is.null(bbox_x())) {
+          updateNumericInput(session, 'nbox2label', value = n_labels())    
+        }
+        
     })
 
     # dynamic UI for histogram colors
