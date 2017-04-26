@@ -25,8 +25,10 @@ d_cochran <- eventReactive(input$submit_cochran, {
   req(input$var_cochran)
   data <- final()[, c(input$var_cochran)]
   validate(need(data %>% map(nlevels) %>% `<`(3) %>% all(), 'Only binary variables must be selected.'))
+  k <- cochran_test(data)
+  k
 })
 
 output$cochran_out <- renderPrint({
-  cochran_test(d_cochran())
+  d_cochran()
 })
