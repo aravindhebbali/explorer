@@ -5,7 +5,7 @@ library(descriptr)
 library(dplyr)
 
 shinyUI(
-
+		
     navbarPage(HTML("Rsquared Academy"), id = 'mainpage',
 
     source('ui/ui_welcome.R', local = TRUE)[[1]],
